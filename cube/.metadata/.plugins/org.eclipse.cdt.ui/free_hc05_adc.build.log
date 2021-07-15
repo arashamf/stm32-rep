@@ -1,0 +1,32 @@
+12:08:15 **** Incremental Build of configuration Debug for project free_hc05_adc ****
+make -j8 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DUSE_HAL_DRIVER -DDEBUG -DSTM32F407xx -c -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F -I../Drivers/CMSIS/Include -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Core/Inc -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c: In function 'HAL_UART_RxCpltCallback':
+../Core/Src/main.c:381:38: warning: passing argument 2 of 'osMessagePut' makes integer from pointer without a cast [-Wint-conversion]
+  osMessagePut (Queue_UART4_RXHandle, message_UART4_rx, 200);
+                                      ^~~~~~~~~~~~~~~~
+In file included from ../Core/Src/main.c:23:0:
+../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS/cmsis_os.h:845:10: note: expected 'uint32_t {aka long unsigned int}' but argument is of type 'char *'
+ osStatus osMessagePut (osMessageQId queue_id, uint32_t info, uint32_t millisec);
+          ^~~~~~~~~~~~
+../Core/Src/main.c: In function 'start_task_ADC':
+../Core/Src/main.c:422:15: warning: variable 'xLastWakeTime' set but not used [-Wunused-but-set-variable]
+    TickType_t xLastWakeTime; //аргумент хранит значение времени, соответствующее моменту, когда задача была разблокирована в предыдущий раз
+               ^~~~~~~~~~~~~
+arm-none-eabi-gcc -o "free_hc05_adc.elf" @"objects.list"   -mcpu=cortex-m4 -T"D:\my docs\projects\stm32\cube\free_hc05_adc\STM32F407VGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="free_hc05_adc.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: free_hc05_adc.elf
+ 
+arm-none-eabi-objdump -h -S  free_hc05_adc.elf  > "free_hc05_adc.list"
+arm-none-eabi-objcopy  -O binary  free_hc05_adc.elf  "free_hc05_adc.bin"
+arm-none-eabi-size   free_hc05_adc.elf 
+   text	   data	    bss	    dec	    hex	filename
+  26892	    124	  56612	  83628	  146ac	free_hc05_adc.elf
+Finished building: default.size.stdout
+ 
+Finished building: free_hc05_adc.bin
+ 
+Finished building: free_hc05_adc.list
+ 
+
+12:08:16 Build Finished. 0 errors, 2 warnings. (took 1s.220ms)
+

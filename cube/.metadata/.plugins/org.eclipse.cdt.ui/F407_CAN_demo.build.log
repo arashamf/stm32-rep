@@ -1,0 +1,10 @@
+15:26:48 **** Incremental Build of configuration Debug for project F407_CAN_demo ****
+make -j8 all 
+arm-none-eabi-size   F407_CAN_demo.elf 
+   text	   data	    bss	    dec	    hex	filename
+  15820	    120	   1832	  17772	   456c	F407_CAN_demo.elf
+Finished building: default.size.stdout
+ 
+
+15:26:49 Build Finished. 0 errors, 0 warnings. (took 312ms)
+

@@ -1,0 +1,31 @@
+16:18:43 **** Incremental Build of configuration Debug for project HAL_Host_Mass_Storage ****
+make -j8 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DUSE_HAL_DRIVER -DDEBUG -DSTM32F407xx -c -I../USB_HOST/App -I../FATFS/App -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Middlewares/ST/STM32_USB_Host_Library/Core/Inc -I../Drivers/CMSIS/Include -I../Core/Inc -I../FATFS/Target -I../USB_HOST/Target -I../Middlewares/ST/STM32_USB_Host_Library/Class/MSC/Inc -I../Middlewares/Third_Party/FatFs/src -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c: In function 'UART_msg_transmit':
+../Core/Src/main.c:246:29: warning: pointer targets in passing argument 2 of 'HAL_UART_Transmit' differ in signedness [-Wpointer-sign]
+  HAL_UART_Transmit(&huart3, UART_putstring, count, 0xFFFF);
+                             ^~~~~~~~~~~~~~
+In file included from ../Core/Inc/stm32f4xx_hal_conf.h:364:0,
+                 from ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h:30,
+                 from ../Core/Inc/main.h:31,
+                 from ../Core/Src/main.c:22:
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h:696:19: note: expected 'uint8_t * {aka unsigned char *}' but argument is of type 'char *'
+ HAL_StatusTypeDef HAL_UART_Transmit(UART_HandleTypeDef *huart, uint8_t *pData, uint16_t Size, uint32_t Timeout);
+                   ^~~~~~~~~~~~~~~~~
+arm-none-eabi-gcc -o "HAL_Host_Mass_Storage.elf" @"objects.list"   -mcpu=cortex-m4 -T"D:\my docs\projects\stm32\cube\HAL_Host_Mass_Storage\STM32F407VGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="HAL_Host_Mass_Storage.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: HAL_Host_Mass_Storage.elf
+ 
+arm-none-eabi-objdump -h -S  HAL_Host_Mass_Storage.elf  > "HAL_Host_Mass_Storage.list"
+arm-none-eabi-objcopy  -O binary  HAL_Host_Mass_Storage.elf  "HAL_Host_Mass_Storage.bin"
+arm-none-eabi-size   HAL_Host_Mass_Storage.elf 
+   text	   data	    bss	    dec	    hex	filename
+  33708	    152	   8384	  42244	   a504	HAL_Host_Mass_Storage.elf
+Finished building: default.size.stdout
+ 
+Finished building: HAL_Host_Mass_Storage.bin
+ 
+Finished building: HAL_Host_Mass_Storage.list
+ 
+
+16:18:45 Build Finished. 0 errors, 1 warnings. (took 1s.260ms)
+

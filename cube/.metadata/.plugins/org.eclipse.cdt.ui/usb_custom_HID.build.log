@@ -1,0 +1,21 @@
+11:53:45 **** Incremental Build of configuration Debug for project usb_custom_HID ****
+make -j8 all 
+arm-none-eabi-gcc "../USB_DEVICE/App/usbd_custom_hid_if.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DUSE_HAL_DRIVER -DDEBUG -DSTM32F407xx -c -I../USB_DEVICE/Target -I../Middlewares/ST/STM32_USB_Device_Library/Class/CustomHID/Inc -I../Drivers/CMSIS/Include -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Core/Inc -I../USB_DEVICE/App -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Middlewares/ST/STM32_USB_Device_Library/Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"USB_DEVICE/App/usbd_custom_hid_if.d" -MT"USB_DEVICE/App/usbd_custom_hid_if.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "USB_DEVICE/App/usbd_custom_hid_if.o"
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DUSE_HAL_DRIVER -DDEBUG -DSTM32F407xx -c -I../USB_DEVICE/Target -I../Middlewares/ST/STM32_USB_Device_Library/Class/CustomHID/Inc -I../Drivers/CMSIS/Include -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Core/Inc -I../USB_DEVICE/App -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Middlewares/ST/STM32_USB_Device_Library/Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+arm-none-eabi-gcc -o "usb_custom_HID.elf" @"objects.list"   -mcpu=cortex-m4 -T"D:\my docs\projects\stm32\cube\usb_custom_HID\STM32F407VGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="usb_custom_HID.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: usb_custom_HID.elf
+ 
+arm-none-eabi-objdump -h -S  usb_custom_HID.elf  > "usb_custom_HID.list"
+arm-none-eabi-objcopy  -O binary  usb_custom_HID.elf  "usb_custom_HID.bin"
+arm-none-eabi-size   usb_custom_HID.elf 
+   text	   data	    bss	    dec	    hex	filename
+  26908	    520	   3888	  31316	   7a54	usb_custom_HID.elf
+Finished building: default.size.stdout
+ 
+Finished building: usb_custom_HID.bin
+ 
+Finished building: usb_custom_HID.list
+ 
+
+11:53:48 Build Finished. 0 errors, 0 warnings. (took 2s.940ms)
+

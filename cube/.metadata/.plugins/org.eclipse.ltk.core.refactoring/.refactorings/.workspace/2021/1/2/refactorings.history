@@ -1,0 +1,3 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">&#x0A;<refactoring comment="Delete resource &apos;cube_rcc&apos;" deleteContents="false" description="Delete resource &apos;cube_rcc&apos;" element1="/cube_rcc" flags="7" id="org.eclipse.ltk.core.refactoring.delete.resources" resources="1" stamp="1610148069789"/>&#x0A;<refactoring comment="Delete 8 resources" deleteContents="false" description="Delete 8 resources" element1="/f103_NRF" element2="/free_hc05_adc" element3="/free_rtos_first" element4="/HAL_Device_Mass_Storage" element5="/HAL_Host_Mass_Storage" element6="/usb_custom_HID" element7="/usb_first" element8="/usb_HID" flags="7" id="org.eclipse.ltk.core.refactoring.delete.resources" resources="8" stamp="1610148101903"/>
+</session>

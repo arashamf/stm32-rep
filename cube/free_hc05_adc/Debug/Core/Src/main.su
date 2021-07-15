@@ -1,0 +1,14 @@
+main.c:91:5:main	184	static
+main.c:194:6:SystemClock_Config	88	static
+main.c:237:13:MX_ADC2_Init	24	static
+main.c:287:13:MX_UART4_Init	8	static
+main.c:320:13:MX_USART3_UART_Init	8	static
+main.c:353:13:MX_GPIO_Init	48	static
+main.c:377:6:HAL_UART_RxCpltCallback	16	static
+main.c:396:6:StartDefaultTask	16	static
+main.c:416:6:start_task_ADC	24	static
+main.c:448:6:start_task_UART_ADC	16	static
+main.c:481:6:task_UART4_ISR_Handler	16	static
+main.c:545:6:TestUART4TX_Handler	32	static
+main.c:568:6:HAL_TIM_PeriodElapsedCallback	16	static
+main.c:585:6:Error_Handler	4	static

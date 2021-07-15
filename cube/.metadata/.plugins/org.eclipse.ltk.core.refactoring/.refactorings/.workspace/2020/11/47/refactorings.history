@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Delete resource &apos;free_hc05_adc/Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS/task.h&apos;" deleteContents="false" description="Delete resource &apos;free_hc05_adc/Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS/task.h&apos;" element1="/free_hc05_adc/Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS/task.h" flags="7" id="org.eclipse.ltk.core.refactoring.delete.resources" resources="1" stamp="1605872727360"/>
+</session>
