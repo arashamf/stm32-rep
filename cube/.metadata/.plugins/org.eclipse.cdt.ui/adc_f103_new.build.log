@@ -1,0 +1,38 @@
+10:51:55 **** Incremental Build of configuration Debug for project adc_f103_new ****
+make -j8 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m3 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F103xB -c -I../Core/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c: In function 'main':
+../Core/Src/main.c:87:3: warning: implicit declaration of function 'sprintf' [-Wimplicit-function-declaration]
+   87 |   sprintf (msg_UART_TX, "%lu, %lu, %lu, %lu\r\n", HAL_RCC_GetSysClockFreq(), HAL_RCC_GetHCLKFreq(), HAL_RCC_GetPCLK1Freq(), HAL_RCC_GetPCLK2Freq());
+      |   ^~~~~~~
+../Core/Src/main.c:87:3: warning: incompatible implicit declaration of built-in function 'sprintf'
+../Core/Src/main.c:22:1: note: include '<stdio.h>' or provide a declaration of 'sprintf'
+   21 | #include "main.h"
+  +++ |+#include <stdio.h>
+   22 | 
+../Core/Src/main.c:88:3: warning: implicit declaration of function 'HAL_UART_Transmit' [-Wimplicit-function-declaration]
+   88 |   HAL_UART_Transmit (&huart1, (uint8_t*)msg_UART_TX, strlen(msg_UART_TX), 0xFF);
+      |   ^~~~~~~~~~~~~~~~~
+../Core/Src/main.c:88:23: error: 'huart1' undeclared (first use in this function)
+   88 |   HAL_UART_Transmit (&huart1, (uint8_t*)msg_UART_TX, strlen(msg_UART_TX), 0xFF);
+      |                       ^~~~~~
+../Core/Src/main.c:88:23: note: each undeclared identifier is reported only once for each function it appears in
+../Core/Src/main.c:88:54: warning: implicit declaration of function 'strlen' [-Wimplicit-function-declaration]
+   88 |   HAL_UART_Transmit (&huart1, (uint8_t*)msg_UART_TX, strlen(msg_UART_TX), 0xFF);
+      |                                                      ^~~~~~
+../Core/Src/main.c:88:54: warning: incompatible implicit declaration of built-in function 'strlen'
+../Core/Src/main.c:22:1: note: include '<string.h>' or provide a declaration of 'strlen'
+   21 | #include "main.h"
+  +++ |+#include <string.h>
+   22 | 
+../Core/Src/main.c:91:21: error: 'LED_GPIO_Port' undeclared (first use in this function)
+   91 |   HAL_GPIO_WritePin(LED_GPIO_Port, LED_Pin, ENABLE);
+      |                     ^~~~~~~~~~~~~
+../Core/Src/main.c:91:36: error: 'LED_Pin' undeclared (first use in this function)
+   91 |   HAL_GPIO_WritePin(LED_GPIO_Port, LED_Pin, ENABLE);
+      |                                    ^~~~~~~
+make: *** [Core/Src/subdir.mk:34: Core/Src/main.o] Error 1
+"make -j8 all" terminated with exit code 2. Build might be incomplete.
+
+10:51:56 Build Failed. 4 errors, 5 warnings. (took 434ms)
+
