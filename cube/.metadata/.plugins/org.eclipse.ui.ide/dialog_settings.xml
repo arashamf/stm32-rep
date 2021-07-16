@@ -9,6 +9,8 @@
 		<item key="SmartImportRootWizardPage.STORE_NESTED_PROJECTS" value="true"/>
 		<item key="SmartImportRootWizardPage.STORE_CONFIGURE_NATURES" value="true"/>
 		<list key="org.eclipse.ui.internal.wizards.datatransfer.SmartImportRootWizardPage.knownSources">
+			<item value="D:\projects\stm32-rep\cube\cube_rcc"/>
+			<item value="D:\projects\stm32-rep\cube\adc_f103"/>
 			<item value="D:\projects\stm32\cube"/>
 			<item value="/home/arashamf/projects/stm32/cube/cube_rcc"/>
 		</list>
