@@ -103,14 +103,15 @@ int main(void)
   MX_ADC1_Init();
   MX_USART1_UART_Init();
   /* USER CODE BEGIN 2 */
+  HAL_GPIO_WritePin(LED_GPIO_Port, LED_Pin, ENABLE);
   sprintf (msg_UART_TX, "%lu, %lu, %lu, %lu\r\n", HAL_RCC_GetSysClockFreq(), HAL_RCC_GetHCLKFreq(), HAL_RCC_GetPCLK1Freq(), HAL_RCC_GetPCLK2Freq());
   HAL_UART_Transmit (&huart1, (uint8_t*)msg_UART_TX, strlen(msg_UART_TX), 0xFF);
-  sprintf (msg_UART_TX, "adc_start\r\n");
+  sprintf (msg_UART_TX, "adc_DMA_start\r\n");
   HAL_UART_Transmit (&huart1, (uint8_t*)msg_UART_TX, strlen(msg_UART_TX), 0xFF);
-  HAL_GPIO_WritePin(LED_GPIO_Port, LED_Pin, ENABLE);
   HAL_ADCEx_Calibration_Start(&hadc1); //калибровка adc1
   sprintf (msg_UART_TX, "adc_calibrate\r\n");
   HAL_UART_Transmit (&huart1, (uint8_t*)msg_UART_TX, strlen(msg_UART_TX), 0xFF);
+  HAL_ADC_Start_DMA(&hadc1, (uint32_t*)&adc, 2); // стартуем АЦП с DMA
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -120,6 +121,15 @@ int main(void)
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
+/*	HAL_GPIO_TogglePin (LED_GPIO_Port, LED_Pin);
+	HAL_ADC_Start(&hadc1); // запускаем преобразование сигнала АЦП
+	HAL_ADC_PollForConversion(&hadc1, 100); // ожидаем окончания преобразования
+	value_adc = HAL_ADC_GetValue(&hadc1); // читаем полученное значение в переменную adc
+	HAL_ADC_Stop(&hadc1); // останавливаем АЦП (не обязательно)
+	sprintf(msg_UART_TX,  "ADC=%hd\n", (uint16_t)value_adc);
+	HAL_UART_Transmit(&huart1, (uint8_t*)msg_UART_TX, strlen(msg_UART_TX), 1000);
+	HAL_Delay(1000);*/
+
  if (flag)
  {
 	 flag = 0;
@@ -129,6 +139,7 @@ int main(void)
 	 HAL_UART_Transmit(&huart1, (uint8_t*)msg_UART_TX, strlen(msg_UART_TX), 1000);
 	 adc[0] = 0;
 	 adc[1] = 0;
+	 HAL_Delay(500);
 	 HAL_ADC_Start_DMA(&hadc1, (uint32_t*)&adc, 2); // запускаем преобразование сигнала АЦП1
  }
 
@@ -213,7 +224,7 @@ static void MX_ADC1_Init(void)
   }
   /** Configure Regular Channel
   */
-  sConfig.Channel = ADC_CHANNEL_1;
+  sConfig.Channel = ADC_CHANNEL_0;
   sConfig.Rank = ADC_REGULAR_RANK_1;
   sConfig.SamplingTime = ADC_SAMPLETIME_1CYCLE_5;
   if (HAL_ADC_ConfigChannel(&hadc1, &sConfig) != HAL_OK)
@@ -222,7 +233,7 @@ static void MX_ADC1_Init(void)
   }
   /** Configure Regular Channel
   */
-  sConfig.Channel = ADC_CHANNEL_2;
+  sConfig.Channel = ADC_CHANNEL_1;
   sConfig.Rank = ADC_REGULAR_RANK_2;
   if (HAL_ADC_ConfigChannel(&hadc1, &sConfig) != HAL_OK)
   {

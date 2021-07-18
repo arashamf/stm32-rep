@@ -1,7 +1,17 @@
-12:30:33 **** Incremental Build of configuration Release for project adc_f103 ****
-make -j8 all 
+01:53:00 **** Incremental Build of configuration Debug for project adc_f103 ****
+make -j4 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m3 -std=gnu11 -g3 -DUSE_HAL_DRIVER -DSTM32F103xB -DDEBUG -c -I../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I../Drivers/CMSIS/Include -I../Core/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I../Drivers/STM32F1xx_HAL_Driver/Inc -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Core/Src/main.o"
+arm-none-eabi-gcc -o "adc_f103.elf" @"objects.list"   -mcpu=cortex-m3 -T"/home/arashamf/projects/pr-stm32/cube/adc_f103/STM32F103C8TX_FLASH.ld" --specs=nosys.specs -Wl,-Map="adc_f103.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: adc_f103.elf
+ 
+arm-none-eabi-objdump -h -S  adc_f103.elf  > "adc_f103.list"
+arm-none-eabi-objcopy  -O binary  adc_f103.elf  "adc_f103.bin"
 arm-none-eabi-size   adc_f103.elf 
    text	   data	    bss	    dec	    hex	filename
-   9140	    120	   1848	  11108	   2b64	adc_f103.elf
+  13600	    120	   1848	  15568	   3cd0	adc_f103.elf
 Finished building: default.size.stdout
+ 
+Finished building: adc_f103.bin
+ 
+Finished building: adc_f103.list
  
