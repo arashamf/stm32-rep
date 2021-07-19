@@ -467,7 +467,7 @@ void ADC_SoftwareStartConvCmd(ADC_TypeDef* ADCx, FunctionalState NewState)
   }
   else
   {
-    /* Disable the selected ADC conversion on external event and stop the selected
+    /* Disable the ADC_FLAGselected ADC conversion on external event and stop the selected
        ADC conversion */
     ADCx->CR2 &= CR2_EXTTRIG_SWSTART_Reset;
   }

@@ -2,6 +2,7 @@
 Mcu.Family=STM32F1
 RCC.PLLSourceVirtual=RCC_PLLSOURCE_HSE
 ProjectManager.MainLocation=Core/Src
+NVIC.ADC1_2_IRQn=true\:0\:0\:false\:false\:true\:true\:true
 RCC.MCOFreq_Value=48000000
 ProjectManager.ProjectFileName=adc_f103.ioc
 Dma.ADC1.0.Instance=DMA1_Channel1

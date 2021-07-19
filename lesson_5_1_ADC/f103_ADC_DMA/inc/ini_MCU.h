@@ -7,9 +7,9 @@
 
 #ifndef INI_MCU_H_
 #define INI_MCU_H_
+
 #include "stm32f10x.h"
 
-#define BAUDRATE 57600
 #define PERIOD 100
 
 void LEDS_ini ();

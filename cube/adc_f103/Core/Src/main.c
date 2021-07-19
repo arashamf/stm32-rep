@@ -135,7 +135,7 @@ int main(void)
 	 flag = 0;
 	 HAL_GPIO_TogglePin (LED_GPIO_Port, LED_Pin);
 	 HAL_ADC_Stop_DMA(&hadc1); // останавливаем АЦП1
-	 sprintf(msg_UART_TX,  "ADC %hd %hd\n", (uint16_t)adc[0], (uint16_t)adc[1]);
+	 sprintf(msg_UART_TX,  "ADC %hd %hd\n\r", (uint16_t)adc[0], (uint16_t)adc[1]);
 	 HAL_UART_Transmit(&huart1, (uint8_t*)msg_UART_TX, strlen(msg_UART_TX), 1000);
 	 adc[0] = 0;
 	 adc[1] = 0;

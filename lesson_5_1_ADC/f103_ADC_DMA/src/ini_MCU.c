@@ -23,80 +23,6 @@ void LEDS_ini ()
 	GPIO_Init (GPIOC, &GPIO_Init_LED1);
 }
 
-//-------------------------функция инициализации UART2-------------------------------//
-void UART2_ini ()
-
-	{
-	RCC_APB2PeriphClockCmd (RCC_APB2Periph_GPIOA, ENABLE);  //затактируем порт А
-
-	GPIO_InitTypeDef 	GPIO_Init_UART2;
-	GPIO_Init_UART2.GPIO_Pin = GPIO_Pin_2; //PA2 - Tx
-	GPIO_Init_UART2.GPIO_Mode = GPIO_Mode_AF_PP; //PA2 на альт. выход с подтяжкой
-	GPIO_Init_UART2.GPIO_Speed = GPIO_Speed_10MHz; //скорость порта
-	GPIO_Init (GPIOA, &GPIO_Init_UART2);
-
-	GPIO_Init_UART2.GPIO_Pin =  GPIO_Pin_3; //PA3 - Rx
-	GPIO_Init_UART2.GPIO_Mode = GPIO_Mode_IN_FLOATING; //PA3 на плавающий выход
-	GPIO_Init_UART2.GPIO_Speed = GPIO_Speed_10MHz; //скорость порта
-	GPIO_Init (GPIOA, &GPIO_Init_UART2);
-
-	GPIO_PinRemapConfig(GPIO_Remap_USART2, ENABLE);
-
-	RCC_APB1PeriphClockCmd (RCC_APB1Periph_USART2, ENABLE); //затактируем USART2
-
-	USART_InitTypeDef ini_USART2;
-	ini_USART2.USART_BaudRate = BAUDRATE; //пропускная способность UART2
-	ini_USART2.USART_WordLength = USART_WordLength_8b; //1 стартовый бит, 8 бит данных, n стоп-бит
-	ini_USART2.USART_StopBits = USART_StopBits_1; //1 стоп-бит
-	ini_USART2.USART_Parity = USART_Parity_No; //без проверки бита чётности
-	ini_USART2.USART_Mode = USART_Mode_Rx | USART_Mode_Tx;  //включим приём/передачу по USART2
-	ini_USART2.USART_HardwareFlowControl = USART_HardwareFlowControl_None; //аппаратное управление потоком отключено
-	USART_Init(USART2, &ini_USART2); //запишем настройки USART2
-
-/*	USART_ITConfig(USART2, USART_IT_TXE, ENABLE); //включим прерывание  на передачу при пустом регистре данных
-	USART_ITConfig(USART2, USART_IT_RXNE, ENABLE); //включим прерывание на приём при полном регистре данных
-	NVIC_EnableIRQ(USART2_IRQn); //разрешим прерывание от USART2*/
-
-	USART_Cmd(USART2, ENABLE);  //включим USART2
-	}
-
-//-------------------------функция инициализации UART2-------------------------------//
-void UART1_ini ()
-
-	{
-	RCC_APB2PeriphClockCmd (RCC_APB2Periph_GPIOA, ENABLE); //затактируем порт А
-
-	GPIO_InitTypeDef 	GPIO_Init_UART1;
-	GPIO_Init_UART1.GPIO_Pin = GPIO_Pin_9; //PA9 - Tx
-	GPIO_Init_UART1.GPIO_Mode = GPIO_Mode_AF_PP; //PA9 на альт. выход с подтяжкой
-	GPIO_Init_UART1.GPIO_Speed = GPIO_Speed_10MHz; //скорость порта
-	GPIO_Init (GPIOA, &GPIO_Init_UART1);
-
-	GPIO_Init_UART1.GPIO_Pin =  GPIO_Pin_10; //PA10 - Rx
-	GPIO_Init_UART1.GPIO_Mode = GPIO_Mode_IN_FLOATING; //PA10 на плавающий вход
-	GPIO_Init_UART1.GPIO_Speed = GPIO_Speed_10MHz; //скорость порта
-	GPIO_Init (GPIOA, &GPIO_Init_UART1);
-
-//	GPIO_PinRemapConfig(GPIO_Remap_USART1, ENABLE);
-
-	RCC_APB2PeriphClockCmd (RCC_APB2Periph_USART1, ENABLE); //затактируем USART1
-
-	USART_InitTypeDef ini_USART1;
-	ini_USART1.USART_BaudRate = BAUDRATE; //пропускная способность UART2
-	ini_USART1.USART_WordLength = USART_WordLength_8b; //1 стартовый бит, 8 бит данных, n стоп-бит
-	ini_USART1.USART_StopBits = USART_StopBits_1; //1 стоп-бит
-	ini_USART1.USART_Parity = USART_Parity_No; //без проверки бита чётности
-	ini_USART1.USART_Mode = USART_Mode_Rx | USART_Mode_Tx;  //включим приём/передачу по USART1
-	ini_USART1.USART_HardwareFlowControl = USART_HardwareFlowControl_None; //аппаратное управление потоком отключено
-	USART_Init(USART1, &ini_USART1); //запишем настройки USART1
-
-/*	USART_ITConfig(USART1, USART_IT_TXE, ENABLE); //включим прерывание  на передачу при пустом регистре данных
-	USART_ITConfig(USART1, USART_IT_RXNE, ENABLE); //включим прерывание на приём при полном регистре данных
-	NVIC_EnableIRQ(USART1_IRQn); //разрешим прерывание от USART1*/
-
-	USART_Cmd(USART1, ENABLE);  //включим USART2
-	}
-
 //-------------------------функция инициализации генератора PLL------------------------------------------//
 uint8_t PLL_ini (uint8_t CPU_WS, uint8_t RCC_PLLMUL)
 {
@@ -146,12 +72,12 @@ uint8_t PLL_ini (uint8_t CPU_WS, uint8_t RCC_PLLMUL)
 void PWM_timer3_ini ()
 {
 	RCC_APB1PeriphClockCmd(RCC_APB1Periph_TIM3, ENABLE); //включим таймер3
-	RCC_APB2PeriphClockCmd (RCC_APB2Periph_GPIOA, ENABLE);  //затактируем порт B
+	RCC_APB2PeriphClockCmd (RCC_APB2Periph_GPIOA, ENABLE);  //затактируем порт A
 
 	//настройка GPIO для канала 1 и 2 ШИМ таймера 3//
 	GPIO_InitTypeDef 	GPIO_PWM_tim3_init;
 	GPIO_PWM_tim3_init.GPIO_Pin = (GPIO_Pin_6 | GPIO_Pin_7); //PA6 - channel 1, PA7 - channel 2 timer 3
-	GPIO_PWM_tim3_init.GPIO_Mode = GPIO_Mode_AF_PP; //PA6 на альт. выход с подтяжкой
+	GPIO_PWM_tim3_init.GPIO_Mode = GPIO_Mode_AF_PP; //PA6 и PA7 на альт. выход с подтяжкой
 	GPIO_PWM_tim3_init.GPIO_Speed = GPIO_Speed_2MHz; //скорость порта
 	GPIO_Init (GPIOA, &GPIO_PWM_tim3_init);
 
@@ -200,7 +126,7 @@ void timer4_ini ()
 	TIM_TimeBaseInitTypeDef timer4_base_ini;
 	timer4_base_ini.TIM_Prescaler = (1600-1); //предделитель (частота таймера 16000000/1600 = 10000Гц)
 	timer4_base_ini.TIM_CounterMode = TIM_CounterMode_Up ; //счёт на увеличение
-	timer4_base_ini.TIM_Period = 100; //значение перезагрузки TIM3, прерывание TIM_Period/частота_TIM=100/10000=10 мс
+	timer4_base_ini.TIM_Period = 100; //значение перезагрузки TIM4, прерывание TIM_Period/частота_TIM=100/10000=10 мс
 	timer4_base_ini.TIM_ClockDivision = TIM_CKD_DIV1;
 	timer4_base_ini.TIM_RepetitionCounter = 0;/*значение счетчика повторений RCR. Каждый раз, когда понижающий счетчик RCR достигает нуля, генерируется событие обновления, и подсчет перезапускается от значения RCR(N).
 											Это означает, что в режиме ШИМ (N+1) соответствует или количеству периодов ШИМ в режиме выравнивания краев, или количеству половин периода ШИМ в режиме центрирования по центру*/
@@ -215,6 +141,16 @@ void timer4_ini ()
 
 void ADC1_ini ()
 {
+	RCC_ADCCLKConfig (RCC_PCLK2_Div2); //установка пределителя тактирования АЦП (ADC clock = PCLK2/2). Тактовая частота АЦП не более 14 МГц
+	RCC_APB2PeriphClockCmd (RCC_APB2Periph_GPIOA, ENABLE);  //затактируем порт A
+
+	//настройка GPIO для канала 0 и 1 АЦП1
+	GPIO_InitTypeDef 	GPIO_ADC_init;
+	GPIO_ADC_init.GPIO_Pin = (GPIO_Pin_0); //PA0 - channel 0, PA1 - channel 1 ADC1
+	GPIO_ADC_init.GPIO_Mode = GPIO_Mode_AIN; //на аналог. вход
+	GPIO_ADC_init.GPIO_Speed = GPIO_Speed_2MHz; //скорость порта
+	GPIO_Init (GPIOA, &GPIO_ADC_init);
+
 	RCC_APB2PeriphClockCmd (RCC_APB2Periph_ADC1, ENABLE);
 	ADC_InitTypeDef ADC1_ini;
 	ADC1_ini.ADC_Mode = ADC_Mode_Independent; //независимый режим АЦП (для двух АЦП возможны варианты)
@@ -224,4 +160,10 @@ void ADC1_ini ()
 	ADC1_ini.ADC_DataAlign = ADC_DataAlign_Right; //выравнивание данных по левому или правому краю
 	ADC1_ini.ADC_NbrOfChannel = 1; //количество каналов
 	ADC_Init(ADC1, &ADC1_ini);
+
+	ADC_ITConfig (ADC1, ADC_IT_EOC, ENABLE); //разрешение прерываний по окончанию преобразования АЦП
+	NVIC_EnableIRQ (ADC1_2_IRQn); // разрешения прерываний АЦП1 в контроллере прерываний
+
+	ADC_Cmd(ADC1, ENABLE); // включаем АЦП
+
 }
