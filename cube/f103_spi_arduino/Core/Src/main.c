@@ -22,7 +22,8 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-
+#include "stdio.h"
+#include "string.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -32,6 +33,8 @@
 
 /* Private define ------------------------------------------------------------*/
 /* USER CODE BEGIN PD */
+#define msg_SIZE 50
+
 /* USER CODE END PD */
 
 /* Private macro -------------------------------------------------------------*/
@@ -59,7 +62,9 @@ static void MX_USART1_UART_Init(void);
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
-
+static char UART_msg_TX[msg_SIZE]; // массив для формирования сообщений для вывода по UART
+uint8_t SPI_msg [20]; // массив для сообщений SPI
+uint8_t point = 0xCA;
 /* USER CODE END 0 */
 
 /**
@@ -93,7 +98,9 @@ int main(void)
   MX_SPI1_Init();
   MX_USART1_UART_Init();
   /* USER CODE BEGIN 2 */
-
+  HAL_GPIO_WritePin(LED_GPIO_Port, LED_Pin, ENABLE);
+  sprintf (UART_msg_TX, "ARDUINO_connect\r\n");
+  HAL_UART_Transmit (&huart1, (uint8_t*)UART_msg_TX, strlen(UART_msg_TX), 0xFF);
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -103,6 +110,14 @@ int main(void)
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
+	  HAL_GPIO_TogglePin (LED_GPIO_Port, LED_Pin);
+	  CS_ON;
+	  HAL_SPI_TransmitReceive(&hspi1, &point, &SPI_msg, 1, 5000);
+	  HAL_SPI_TransmitReceive(&hspi1, &point, &SPI_msg, 2, 5000);
+	  sprintf (UART_msg_TX,  "ADC = %hu\n\r", (uint16_t)SPI_msg[0]);
+	  HAL_UART_Transmit(&huart1, (uint8_t*)UART_msg_TX, strlen(UART_msg_TX), 0xFF);
+	  CS_OFF;
+	  HAL_Delay (500);
   }
   /* USER CODE END 3 */
 }
@@ -199,7 +214,7 @@ static void MX_USART1_UART_Init(void)
 
   /* USER CODE END USART1_Init 1 */
   huart1.Instance = USART1;
-  huart1.Init.BaudRate = 115200;
+  huart1.Init.BaudRate = 57600;
   huart1.Init.WordLength = UART_WORDLENGTH_8B;
   huart1.Init.StopBits = UART_STOPBITS_1;
   huart1.Init.Parity = UART_PARITY_NONE;
@@ -233,12 +248,22 @@ static void MX_GPIO_Init(void)
   /*Configure GPIO pin Output Level */
   HAL_GPIO_WritePin(LED_GPIO_Port, LED_Pin, GPIO_PIN_RESET);
 
+  /*Configure GPIO pin Output Level */
+  HAL_GPIO_WritePin(CS_GPIO_Port, CS_Pin, GPIO_PIN_RESET);
+
   /*Configure GPIO pin : LED_Pin */
   GPIO_InitStruct.Pin = LED_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(LED_GPIO_Port, &GPIO_InitStruct);
+
+  /*Configure GPIO pin : CS_Pin */
+  GPIO_InitStruct.Pin = CS_Pin;
+  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_MEDIUM;
+  HAL_GPIO_Init(CS_GPIO_Port, &GPIO_InitStruct);
 
 }
 

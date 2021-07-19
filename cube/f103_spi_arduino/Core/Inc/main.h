@@ -60,6 +60,10 @@ void Error_Handler(void);
 /* Private defines -----------------------------------------------------------*/
 #define LED_Pin GPIO_PIN_13
 #define LED_GPIO_Port GPIOC
+#define CS_Pin GPIO_PIN_4
+#define CS_GPIO_Port GPIOA
+#define CS_ON HAL_GPIO_WritePin (CS_GPIO_Port, CS_Pin, DISABLE)
+#define CS_OFF HAL_GPIO_WritePin (CS_GPIO_Port, CS_Pin, ENABLE)
 /* USER CODE BEGIN Private defines */
 
 /* USER CODE END Private defines */
