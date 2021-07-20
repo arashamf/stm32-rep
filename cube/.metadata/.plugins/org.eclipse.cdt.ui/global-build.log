@@ -1,42 +1,17 @@
-16:14:27 **** Incremental Build of configuration Debug for project f103_spi_arduino ****
+13:44:22 **** Incremental Build of configuration Debug for project adc_f103 ****
 make -j8 all 
-arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m3 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F103xB -c -I../Core/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Core/Src/main.o"
-../Core/Src/main.c: In function 'main':
-../Core/Src/main.c:115:44: warning: passing argument 3 of 'HAL_SPI_TransmitReceive' from incompatible pointer type [-Wincompatible-pointer-types]
-  115 |    HAL_SPI_TransmitReceive(&hspi1, &point, &SPI_msg, 1, 5000);
-      |                                            ^~~~~~~~
-      |                                            |
-      |                                            uint8_t (*)[20] {aka unsigned char (*)[20]}
-In file included from ../Core/Inc/stm32f1xx_hal_conf.h:329,
-                 from ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal.h:30,
-                 from ../Core/Inc/main.h:31,
-                 from ../Core/Src/main.c:21:
-../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_spi.h:673:95: note: expected 'uint8_t *' {aka 'unsigned char *'} but argument is of type 'uint8_t (*)[20]' {aka 'unsigned char (*)[20]'}
-  673 | HAL_StatusTypeDef HAL_SPI_TransmitReceive(SPI_HandleTypeDef *hspi, uint8_t *pTxData, uint8_t *pRxData, uint16_t Size,
-      |                                                                                      ~~~~~~~~~^~~~~~~
-../Core/Src/main.c:116:44: warning: passing argument 3 of 'HAL_SPI_TransmitReceive' from incompatible pointer type [-Wincompatible-pointer-types]
-  116 |    HAL_SPI_TransmitReceive(&hspi1, &point, &SPI_msg, 2, 5000);
-      |                                            ^~~~~~~~
-      |                                            |
-      |                                            uint8_t (*)[20] {aka unsigned char (*)[20]}
-In file included from ../Core/Inc/stm32f1xx_hal_conf.h:329,
-                 from ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal.h:30,
-                 from ../Core/Inc/main.h:31,
-                 from ../Core/Src/main.c:21:
-../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_spi.h:673:95: note: expected 'uint8_t *' {aka 'unsigned char *'} but argument is of type 'uint8_t (*)[20]' {aka 'unsigned char (*)[20]'}
-  673 | HAL_StatusTypeDef HAL_SPI_TransmitReceive(SPI_HandleTypeDef *hspi, uint8_t *pTxData, uint8_t *pRxData, uint16_t Size,
-      |                                                                                      ~~~~~~~~~^~~~~~~
-arm-none-eabi-gcc -o "f103_spi_arduino.elf" @"objects.list"   -mcpu=cortex-m3 -T"D:\projects\stm32-rep\cube\f103_spi_arduino\STM32F103C8TX_FLASH.ld" --specs=nosys.specs -Wl,-Map="f103_spi_arduino.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
-Finished building target: f103_spi_arduino.elf
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m3 -std=gnu11 -g3 -DUSE_HAL_DRIVER -DSTM32F103xB -DDEBUG -c -I../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I../Drivers/CMSIS/Include -I../Core/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I../Drivers/STM32F1xx_HAL_Driver/Inc -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Core/Src/main.o"
+arm-none-eabi-gcc -o "adc_f103.elf" @"objects.list"   -mcpu=cortex-m3 -T"D:\projects\stm32-rep\cube\adc_f103\STM32F103C8TX_FLASH.ld" --specs=nosys.specs -Wl,-Map="adc_f103.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: adc_f103.elf
  
-arm-none-eabi-objdump -h -S  f103_spi_arduino.elf  > "f103_spi_arduino.list"
-arm-none-eabi-objcopy  -O binary  f103_spi_arduino.elf  "f103_spi_arduino.bin"
-arm-none-eabi-size   f103_spi_arduino.elf 
+arm-none-eabi-objdump -h -S  adc_f103.elf  > "adc_f103.list"
+arm-none-eabi-objcopy  -O binary  adc_f103.elf  "adc_f103.bin"
+arm-none-eabi-size   adc_f103.elf 
    text	   data	    bss	    dec	    hex	filename
-  11072	    124	   1828	  13024	   32e0	f103_spi_arduino.elf
+  16840	    120	   1920	  18880	   49c0	adc_f103.elf
 Finished building: default.size.stdout
  
-Finished building: f103_spi_arduino.bin
+Finished building: adc_f103.bin
  
-Finished building: f103_spi_arduino.list
+Finished building: adc_f103.list
  

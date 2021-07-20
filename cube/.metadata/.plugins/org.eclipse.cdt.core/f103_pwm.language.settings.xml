@@ -9,25 +9,25 @@
                 				
                 <language id="org.eclipse.cdt.core.gcc">
                     					
-                    <entry kind="includePath" name="/home/arashamf/st/stm32cubeide_1.6.1_4/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.9-2020-q2-update.linux64_1.5.0.202011040924/tools/arm-none-eabi/include/newlib-nano">
+                    <entry kind="includePath" name="C:/ST/STM32CubeIDE_1.6.1/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.9-2020-q2-update.win32_1.5.0.202011040924/tools/arm-none-eabi/include/newlib-nano">
                         						
                         <flag value="BUILTIN|READONLY"/>
                         					
                     </entry>
                     					
-                    <entry kind="includePath" name="/home/arashamf/st/stm32cubeide_1.6.1_4/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.9-2020-q2-update.linux64_1.5.0.202011040924/tools/lib/gcc/arm-none-eabi/9.3.1/include">
+                    <entry kind="includePath" name="C:/ST/STM32CubeIDE_1.6.1/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.9-2020-q2-update.win32_1.5.0.202011040924/tools/lib/gcc/arm-none-eabi/9.3.1/include">
                         						
                         <flag value="BUILTIN|READONLY"/>
                         					
                     </entry>
                     					
-                    <entry kind="includePath" name="/home/arashamf/st/stm32cubeide_1.6.1_4/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.9-2020-q2-update.linux64_1.5.0.202011040924/tools/lib/gcc/arm-none-eabi/9.3.1/include-fixed">
+                    <entry kind="includePath" name="C:/ST/STM32CubeIDE_1.6.1/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.9-2020-q2-update.win32_1.5.0.202011040924/tools/lib/gcc/arm-none-eabi/9.3.1/include-fixed">
                         						
                         <flag value="BUILTIN|READONLY"/>
                         					
                     </entry>
                     					
-                    <entry kind="includePath" name="/home/arashamf/st/stm32cubeide_1.6.1_4/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.9-2020-q2-update.linux64_1.5.0.202011040924/tools/arm-none-eabi/include">
+                    <entry kind="includePath" name="C:/ST/STM32CubeIDE_1.6.1/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.9-2020-q2-update.win32_1.5.0.202011040924/tools/arm-none-eabi/include">
                         						
                         <flag value="BUILTIN|READONLY"/>
                         					
@@ -256,6 +256,12 @@
                     </entry>
                     					
                     <entry kind="macro" name="__DA_FBIT__" value="31">
+                        						
+                        <flag value="BUILTIN|READONLY"/>
+                        					
+                    </entry>
+                    					
+                    <entry kind="macro" name="__DA_IBIT__" value="32">
                         						
                         <flag value="BUILTIN|READONLY"/>
                         					
@@ -724,6 +730,12 @@
                     </entry>
                     					
                     <entry kind="macro" name="__FLT64_MANT_DIG__" value="53">
+                        						
+                        <flag value="BUILTIN|READONLY"/>
+                        					
+                    </entry>
+                    					
+                    <entry kind="macro" name="__FLT64_MAX_10_EXP__" value="308">
                         						
                         <flag value="BUILTIN|READONLY"/>
                         					
@@ -1491,6 +1503,12 @@
                         					
                     </entry>
                     					
+                    <entry kind="macro" name="__LLACCUM_MIN__" value="(-0X1P31LLK-0X1P31LLK)">
+                        						
+                        <flag value="BUILTIN|READONLY"/>
+                        					
+                    </entry>
+                    					
                     <entry kind="macro" name="__LLFRACT_EPSILON__" value="0x1P-63LLR">
                         						
                         <flag value="BUILTIN|READONLY"/>
@@ -1768,12 +1786,6 @@
                     </entry>
                     					
                     <entry kind="macro" name="__SIZEOF_POINTER__" value="4">
-                        						
-                        <flag value="BUILTIN|READONLY"/>
-                        					
-                    </entry>
-                    					
-                    <entry kind="macro" name="__SIZEOF_POINTER__" value="32">
                         						
                         <flag value="BUILTIN|READONLY"/>
                         					
@@ -2109,12 +2121,6 @@
                         					
                     </entry>
                     					
-                    <entry kind="macro" name="__UINTMAX_TYPE__" value="(-0X1P31LLK-0X1P31LLK)">
-                        						
-                        <flag value="BUILTIN|READONLY"/>
-                        					
-                    </entry>
-                    					
                     <entry kind="macro" name="__UINTPTR_MAX__" value="0xffffffffU">
                         						
                         <flag value="BUILTIN|READONLY"/>
@@ -2230,6 +2236,12 @@
                     </entry>
                     					
                     <entry kind="macro" name="__ULACCUM_FBIT__" value="32">
+                        						
+                        <flag value="BUILTIN|READONLY"/>
+                        					
+                    </entry>
+                    					
+                    <entry kind="macro" name="__ULACCUM_IBIT__" value="32">
                         						
                         <flag value="BUILTIN|READONLY"/>
                         					
@@ -2380,6 +2392,12 @@
                     </entry>
                     					
                     <entry kind="macro" name="__USA_FBIT__" value="16">
+                        						
+                        <flag value="BUILTIN|READONLY"/>
+                        					
+                    </entry>
+                    					
+                    <entry kind="macro" name="__USA_IBIT__" value="16">
                         						
                         <flag value="BUILTIN|READONLY"/>
                         					
@@ -2557,43 +2575,43 @@
                 				
                 <language id="org.eclipse.cdt.core.g++">
                     					
-                    <entry kind="includePath" name="/home/arashamf/st/stm32cubeide_1.6.1_4/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.9-2020-q2-update.linux64_1.5.0.202011040924/tools/arm-none-eabi/include/newlib-nano">
+                    <entry kind="includePath" name="C:/ST/STM32CubeIDE_1.6.1/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.9-2020-q2-update.win32_1.5.0.202011040924/tools/arm-none-eabi/include/newlib-nano">
                         						
                         <flag value="BUILTIN|READONLY"/>
                         					
                     </entry>
                     					
-                    <entry kind="includePath" name="/home/arashamf/st/stm32cubeide_1.6.1_4/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.9-2020-q2-update.linux64_1.5.0.202011040924/tools/arm-none-eabi/include/c++/9.3.1">
+                    <entry kind="includePath" name="C:/ST/STM32CubeIDE_1.6.1/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.9-2020-q2-update.win32_1.5.0.202011040924/tools/arm-none-eabi/include/c++/9.3.1">
                         						
                         <flag value="BUILTIN|READONLY"/>
                         					
                     </entry>
                     					
-                    <entry kind="includePath" name="/home/arashamf/st/stm32cubeide_1.6.1_4/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.9-2020-q2-update.linux64_1.5.0.202011040924/tools/arm-none-eabi/include/c++/9.3.1/arm-none-eabi/thumb/v7-m/nofp">
+                    <entry kind="includePath" name="C:/ST/STM32CubeIDE_1.6.1/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.9-2020-q2-update.win32_1.5.0.202011040924/tools/arm-none-eabi/include/c++/9.3.1/arm-none-eabi/thumb/v7-m/nofp">
                         						
                         <flag value="BUILTIN|READONLY"/>
                         					
                     </entry>
                     					
-                    <entry kind="includePath" name="/home/arashamf/st/stm32cubeide_1.6.1_4/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.9-2020-q2-update.linux64_1.5.0.202011040924/tools/arm-none-eabi/include/c++/9.3.1/backward">
+                    <entry kind="includePath" name="C:/ST/STM32CubeIDE_1.6.1/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.9-2020-q2-update.win32_1.5.0.202011040924/tools/arm-none-eabi/include/c++/9.3.1/backward">
                         						
                         <flag value="BUILTIN|READONLY"/>
                         					
                     </entry>
                     					
-                    <entry kind="includePath" name="/home/arashamf/st/stm32cubeide_1.6.1_4/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.9-2020-q2-update.linux64_1.5.0.202011040924/tools/lib/gcc/arm-none-eabi/9.3.1/include">
+                    <entry kind="includePath" name="C:/ST/STM32CubeIDE_1.6.1/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.9-2020-q2-update.win32_1.5.0.202011040924/tools/lib/gcc/arm-none-eabi/9.3.1/include">
                         						
                         <flag value="BUILTIN|READONLY"/>
                         					
                     </entry>
                     					
-                    <entry kind="includePath" name="/home/arashamf/st/stm32cubeide_1.6.1_4/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.9-2020-q2-update.linux64_1.5.0.202011040924/tools/lib/gcc/arm-none-eabi/9.3.1/include-fixed">
+                    <entry kind="includePath" name="C:/ST/STM32CubeIDE_1.6.1/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.9-2020-q2-update.win32_1.5.0.202011040924/tools/lib/gcc/arm-none-eabi/9.3.1/include-fixed">
                         						
                         <flag value="BUILTIN|READONLY"/>
                         					
                     </entry>
                     					
-                    <entry kind="includePath" name="/home/arashamf/st/stm32cubeide_1.6.1_4/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.9-2020-q2-update.linux64_1.5.0.202011040924/tools/arm-none-eabi/include">
+                    <entry kind="includePath" name="C:/ST/STM32CubeIDE_1.6.1/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.9-2020-q2-update.win32_1.5.0.202011040924/tools/arm-none-eabi/include">
                         						
                         <flag value="BUILTIN|READONLY"/>
                         					
@@ -4597,12 +4615,6 @@
                         					
                     </entry>
                     					
-                    <entry kind="macro" name="__UFRACT_MAX__" value="8">
-                        						
-                        <flag value="BUILTIN|READONLY"/>
-                        					
-                    </entry>
-                    					
                     <entry kind="macro" name="__UFRACT_MIN__" value="0.0UR">
                         						
                         <flag value="BUILTIN|READONLY"/>
@@ -4946,6 +4958,12 @@
                     </entry>
                     					
                     <entry kind="macro" name="__ULLFRACT_MIN__" value="0.0ULLR">
+                        						
+                        <flag value="BUILTIN|READONLY"/>
+                        					
+                    </entry>
+                    					
+                    <entry kind="macro" name="__UQQ_FBIT__" value="8">
                         						
                         <flag value="BUILTIN|READONLY"/>
                         					
@@ -5393,25 +5411,25 @@
                 				
                 <language id="org.eclipse.cdt.core.gcc">
                     					
-                    <entry kind="includePath" name="/home/arashamf/st/stm32cubeide_1.6.1_4/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.9-2020-q2-update.linux64_1.5.0.202011040924/tools/arm-none-eabi/include/newlib-nano">
+                    <entry kind="includePath" name="C:/ST/STM32CubeIDE_1.6.1/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.9-2020-q2-update.win32_1.5.0.202011040924/tools/arm-none-eabi/include/newlib-nano">
                         						
                         <flag value="BUILTIN|READONLY"/>
                         					
                     </entry>
                     					
-                    <entry kind="includePath" name="/home/arashamf/st/stm32cubeide_1.6.1_4/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.9-2020-q2-update.linux64_1.5.0.202011040924/tools/lib/gcc/arm-none-eabi/9.3.1/include">
+                    <entry kind="includePath" name="C:/ST/STM32CubeIDE_1.6.1/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.9-2020-q2-update.win32_1.5.0.202011040924/tools/lib/gcc/arm-none-eabi/9.3.1/include">
                         						
                         <flag value="BUILTIN|READONLY"/>
                         					
                     </entry>
                     					
-                    <entry kind="includePath" name="/home/arashamf/st/stm32cubeide_1.6.1_4/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.9-2020-q2-update.linux64_1.5.0.202011040924/tools/lib/gcc/arm-none-eabi/9.3.1/include-fixed">
+                    <entry kind="includePath" name="C:/ST/STM32CubeIDE_1.6.1/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.9-2020-q2-update.win32_1.5.0.202011040924/tools/lib/gcc/arm-none-eabi/9.3.1/include-fixed">
                         						
                         <flag value="BUILTIN|READONLY"/>
                         					
                     </entry>
                     					
-                    <entry kind="includePath" name="/home/arashamf/st/stm32cubeide_1.6.1_4/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.9-2020-q2-update.linux64_1.5.0.202011040924/tools/arm-none-eabi/include">
+                    <entry kind="includePath" name="C:/ST/STM32CubeIDE_1.6.1/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.9-2020-q2-update.win32_1.5.0.202011040924/tools/arm-none-eabi/include">
                         						
                         <flag value="BUILTIN|READONLY"/>
                         					
@@ -5628,6 +5646,24 @@
                     </entry>
                     					
                     <entry kind="macro" name="__CHAR_BIT__" value="8">
+                        						
+                        <flag value="BUILTIN|READONLY"/>
+                        					
+                    </entry>
+                    					
+                    <entry kind="macro" name="__CHAR_UNSIGNED__" value="1">
+                        						
+                        <flag value="BUILTIN|READONLY"/>
+                        					
+                    </entry>
+                    					
+                    <entry kind="macro" name="__DA_FBIT__" value="31">
+                        						
+                        <flag value="BUILTIN|READONLY"/>
+                        					
+                    </entry>
+                    					
+                    <entry kind="macro" name="__DA_IBIT__" value="32">
                         						
                         <flag value="BUILTIN|READONLY"/>
                         					
@@ -6407,7 +6443,13 @@
                         					
                     </entry>
                     					
-                    <entry kind="macro" name="__HA_FBIT__" value="32">
+                    <entry kind="macro" name="__HA_FBIT__" value="7">
+                        						
+                        <flag value="BUILTIN|READONLY"/>
+                        					
+                    </entry>
+                    					
+                    <entry kind="macro" name="__HA_IBIT__" value="8">
                         						
                         <flag value="BUILTIN|READONLY"/>
                         					
@@ -7331,12 +7373,6 @@
                         					
                     </entry>
                     					
-                    <entry kind="macro" name="__UDQ_FBIT__" value="8">
-                        						
-                        <flag value="BUILTIN|READONLY"/>
-                        					
-                    </entry>
-                    					
                     <entry kind="macro" name="__UDQ_IBIT__" value="0">
                         						
                         <flag value="BUILTIN|READONLY"/>
@@ -7374,12 +7410,6 @@
                     </entry>
                     					
                     <entry kind="macro" name="__UHA_FBIT__" value="8">
-                        						
-                        <flag value="BUILTIN|READONLY"/>
-                        					
-                    </entry>
-                    					
-                    <entry kind="macro" name="__UHA_FBIT__" value="1">
                         						
                         <flag value="BUILTIN|READONLY"/>
                         					
@@ -7947,43 +7977,43 @@
                 				
                 <language id="org.eclipse.cdt.core.g++">
                     					
-                    <entry kind="includePath" name="/home/arashamf/st/stm32cubeide_1.6.1_4/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.9-2020-q2-update.linux64_1.5.0.202011040924/tools/arm-none-eabi/include/newlib-nano">
+                    <entry kind="includePath" name="C:/ST/STM32CubeIDE_1.6.1/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.9-2020-q2-update.win32_1.5.0.202011040924/tools/arm-none-eabi/include/newlib-nano">
                         						
                         <flag value="BUILTIN|READONLY"/>
                         					
                     </entry>
                     					
-                    <entry kind="includePath" name="/home/arashamf/st/stm32cubeide_1.6.1_4/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.9-2020-q2-update.linux64_1.5.0.202011040924/tools/arm-none-eabi/include/c++/9.3.1">
+                    <entry kind="includePath" name="C:/ST/STM32CubeIDE_1.6.1/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.9-2020-q2-update.win32_1.5.0.202011040924/tools/arm-none-eabi/include/c++/9.3.1">
                         						
                         <flag value="BUILTIN|READONLY"/>
                         					
                     </entry>
                     					
-                    <entry kind="includePath" name="/home/arashamf/st/stm32cubeide_1.6.1_4/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.9-2020-q2-update.linux64_1.5.0.202011040924/tools/arm-none-eabi/include/c++/9.3.1/arm-none-eabi/thumb/v7-m/nofp">
+                    <entry kind="includePath" name="C:/ST/STM32CubeIDE_1.6.1/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.9-2020-q2-update.win32_1.5.0.202011040924/tools/arm-none-eabi/include/c++/9.3.1/arm-none-eabi/thumb/v7-m/nofp">
                         						
                         <flag value="BUILTIN|READONLY"/>
                         					
                     </entry>
                     					
-                    <entry kind="includePath" name="/home/arashamf/st/stm32cubeide_1.6.1_4/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.9-2020-q2-update.linux64_1.5.0.202011040924/tools/arm-none-eabi/include/c++/9.3.1/backward">
+                    <entry kind="includePath" name="C:/ST/STM32CubeIDE_1.6.1/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.9-2020-q2-update.win32_1.5.0.202011040924/tools/arm-none-eabi/include/c++/9.3.1/backward">
                         						
                         <flag value="BUILTIN|READONLY"/>
                         					
                     </entry>
                     					
-                    <entry kind="includePath" name="/home/arashamf/st/stm32cubeide_1.6.1_4/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.9-2020-q2-update.linux64_1.5.0.202011040924/tools/lib/gcc/arm-none-eabi/9.3.1/include">
+                    <entry kind="includePath" name="C:/ST/STM32CubeIDE_1.6.1/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.9-2020-q2-update.win32_1.5.0.202011040924/tools/lib/gcc/arm-none-eabi/9.3.1/include">
                         						
                         <flag value="BUILTIN|READONLY"/>
                         					
                     </entry>
                     					
-                    <entry kind="includePath" name="/home/arashamf/st/stm32cubeide_1.6.1_4/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.9-2020-q2-update.linux64_1.5.0.202011040924/tools/lib/gcc/arm-none-eabi/9.3.1/include-fixed">
+                    <entry kind="includePath" name="C:/ST/STM32CubeIDE_1.6.1/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.9-2020-q2-update.win32_1.5.0.202011040924/tools/lib/gcc/arm-none-eabi/9.3.1/include-fixed">
                         						
                         <flag value="BUILTIN|READONLY"/>
                         					
                     </entry>
                     					
-                    <entry kind="includePath" name="/home/arashamf/st/stm32cubeide_1.6.1_4/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.9-2020-q2-update.linux64_1.5.0.202011040924/tools/arm-none-eabi/include">
+                    <entry kind="includePath" name="C:/ST/STM32CubeIDE_1.6.1/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.9-2020-q2-update.win32_1.5.0.202011040924/tools/arm-none-eabi/include">
                         						
                         <flag value="BUILTIN|READONLY"/>
                         					
@@ -8985,12 +9015,6 @@
                         					
                     </entry>
                     					
-                    <entry kind="macro" name="__GNUC__" value="1">
-                        						
-                        <flag value="BUILTIN|READONLY"/>
-                        					
-                    </entry>
-                    					
                     <entry kind="macro" name="__GNUC__" value="9">
                         						
                         <flag value="BUILTIN|READONLY"/>
@@ -9154,12 +9178,6 @@
                     </entry>
                     					
                     <entry kind="macro" name="__INTMAX_WIDTH__" value="64">
-                        						
-                        <flag value="BUILTIN|READONLY"/>
-                        					
-                    </entry>
-                    					
-                    <entry kind="macro" name="__INTPTR_MAX__" value="0U">
                         						
                         <flag value="BUILTIN|READONLY"/>
                         					
@@ -9861,13 +9879,13 @@
                         					
                     </entry>
                     					
-                    <entry kind="macro" name="__STDC_HOSTED__" value="201402L">
+                    <entry kind="macro" name="__STDC_HOSTED__" value="1">
                         						
                         <flag value="BUILTIN|READONLY"/>
                         					
                     </entry>
                     					
-                    <entry kind="macro" name="__STDC_HOSTED__" value="1">
+                    <entry kind="macro" name="__STDC_UTF_16__" value="1">
                         						
                         <flag value="BUILTIN|READONLY"/>
                         					
@@ -10102,12 +10120,6 @@
                     </entry>
                     					
                     <entry kind="macro" name="__UINTMAX_C(c)" value="c ## ULL">
-                        						
-                        <flag value="BUILTIN|READONLY"/>
-                        					
-                    </entry>
-                    					
-                    <entry kind="macro" name="__UINTMAX_MAX__" value="201304">
                         						
                         <flag value="BUILTIN|READONLY"/>
                         					
@@ -10503,6 +10515,12 @@
                         					
                     </entry>
                     					
+                    <entry kind="macro" name="__WCHAR_MIN__" value="0U">
+                        						
+                        <flag value="BUILTIN|READONLY"/>
+                        					
+                    </entry>
+                    					
                     <entry kind="macro" name="__WCHAR_TYPE__" value="unsigned int">
                         						
                         <flag value="BUILTIN|READONLY"/>
@@ -10551,6 +10569,12 @@
                         					
                     </entry>
                     					
+                    <entry kind="macro" name="__cplusplus" value="201402L">
+                        						
+                        <flag value="BUILTIN|READONLY"/>
+                        					
+                    </entry>
+                    					
                     <entry kind="macro" name="__cpp_aggregate_nsdmi" value="201304">
                         						
                         <flag value="BUILTIN|READONLY"/>
@@ -10564,6 +10588,12 @@
                     </entry>
                     					
                     <entry kind="macro" name="__cpp_attributes" value="200809">
+                        						
+                        <flag value="BUILTIN|READONLY"/>
+                        					
+                    </entry>
+                    					
+                    <entry kind="macro" name="__cpp_binary_literals" value="201304">
                         						
                         <flag value="BUILTIN|READONLY"/>
                         					

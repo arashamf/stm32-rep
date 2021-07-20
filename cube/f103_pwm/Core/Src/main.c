@@ -17,7 +17,6 @@
   ******************************************************************************
   */
 /* USER CODE END Header */
-
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
 
@@ -35,7 +34,7 @@
 /* Private define ------------------------------------------------------------*/
 /* USER CODE BEGIN PD */
 #define msg_SIZE 60
-#define PERIOD 1000 //период импульсов ШИМ
+#define PERIOD 1000 //период импульсов Ш�?М
 /* USER CODE END PD */
 
 /* Private macro -------------------------------------------------------------*/
@@ -50,7 +49,7 @@ TIM_HandleTypeDef htim2;
 UART_HandleTypeDef huart1;
 
 /* USER CODE BEGIN PV */
-unsigned int duty_ch1 = 0; // длительность импульсов ШИМ канала 1 таймера1
+unsigned int duty_ch1 = 0; // длительность импульсов Ш�?М канала 1 таймера1
 uint8_t flag = 1;
 /* USER CODE END PV */
 
@@ -86,14 +85,14 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
         	}
         	else
         	{
-        			duty_ch1 -= PERIOD/1000; // убавляем длительность импульса PWM по 1
-        			TIM1->CCR1 = duty_ch1;
-        			if(duty_ch1 <= 1)
-        			{
-        			   flag = 1;
-        			   sprintf (UART_msg_TX,"flag=1\r\n");
-        			   HAL_UART_Transmit(&huart1, (unsigned char*)UART_msg_TX, strlen(UART_msg_TX), 0x1000);
-        			}
+        		duty_ch1 -= PERIOD/1000; // убавляем длительность импульса PWM по 1
+        		TIM1->CCR1 = duty_ch1;
+        		if(duty_ch1 <= 1)
+        		{
+        			flag = 1;
+        			sprintf (UART_msg_TX,"flag=1\r\n");
+        			HAL_UART_Transmit(&huart1, (unsigned char*)UART_msg_TX, strlen(UART_msg_TX), 0x1000);
+        		}
         	}
         }
 
@@ -111,7 +110,6 @@ int main(void)
   /* USER CODE BEGIN 1 */
 
   /* USER CODE END 1 */
-  
 
   /* MCU Configuration--------------------------------------------------------*/
 
@@ -141,8 +139,6 @@ int main(void)
   sprintf (UART_msg_TX,"pwm_start\r\n");
   HAL_UART_Transmit(&huart1, (unsigned char*)UART_msg_TX, strlen(UART_msg_TX), 0x1000);
   /* USER CODE END 2 */
- 
- 
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
@@ -164,7 +160,8 @@ void SystemClock_Config(void)
   RCC_OscInitTypeDef RCC_OscInitStruct = {0};
   RCC_ClkInitTypeDef RCC_ClkInitStruct = {0};
 
-  /** Initializes the CPU, AHB and APB busses clocks 
+  /** Initializes the RCC Oscillators according to the specified parameters
+  * in the RCC_OscInitTypeDef structure.
   */
   RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSE;
   RCC_OscInitStruct.HSEState = RCC_HSE_ON;
@@ -177,7 +174,7 @@ void SystemClock_Config(void)
   {
     Error_Handler();
   }
-  /** Initializes the CPU, AHB and APB busses clocks 
+  /** Initializes the CPU, AHB and APB buses clocks
   */
   RCC_ClkInitStruct.ClockType = RCC_CLOCKTYPE_HCLK|RCC_CLOCKTYPE_SYSCLK
                               |RCC_CLOCKTYPE_PCLK1|RCC_CLOCKTYPE_PCLK2;
@@ -384,7 +381,7 @@ void Error_Handler(void)
   * @retval None
   */
 void assert_failed(uint8_t *file, uint32_t line)
-{ 
+{
   /* USER CODE BEGIN 6 */
   /* User can add his own implementation to report the file name and line number,
      tex: printf("Wrong parameters value: file %s on line %d\r\n", file, line) */

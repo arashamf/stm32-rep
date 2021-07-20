@@ -44,6 +44,8 @@
 ADC_HandleTypeDef hadc1;
 DMA_HandleTypeDef hdma_adc1;
 
+TIM_HandleTypeDef htim3;
+
 UART_HandleTypeDef huart1;
 
 /* USER CODE BEGIN PV */
@@ -62,6 +64,7 @@ static void MX_GPIO_Init(void);
 static void MX_DMA_Init(void);
 static void MX_ADC1_Init(void);
 static void MX_USART1_UART_Init(void);
+static void MX_TIM3_Init(void);
 /* USER CODE BEGIN PFP */
 
 /* USER CODE END PFP */
@@ -102,16 +105,28 @@ int main(void)
   MX_DMA_Init();
   MX_ADC1_Init();
   MX_USART1_UART_Init();
+  MX_TIM3_Init();
   /* USER CODE BEGIN 2 */
   HAL_GPIO_WritePin(LED_GPIO_Port, LED_Pin, ENABLE);
   sprintf (msg_UART_TX, "%lu, %lu, %lu, %lu\r\n", HAL_RCC_GetSysClockFreq(), HAL_RCC_GetHCLKFreq(), HAL_RCC_GetPCLK1Freq(), HAL_RCC_GetPCLK2Freq());
-  HAL_UART_Transmit (&huart1, (uint8_t*)msg_UART_TX, strlen(msg_UART_TX), 0xFF);
+  HAL_UART_Transmit (&huart1, (uint8_t*)msg_UART_TX, strlen(msg_UART_TX), 0xFF); //отправим тактовые частоты МК
+
   sprintf (msg_UART_TX, "adc_DMA_start\r\n");
   HAL_UART_Transmit (&huart1, (uint8_t*)msg_UART_TX, strlen(msg_UART_TX), 0xFF);
+
   HAL_ADCEx_Calibration_Start(&hadc1); //калибровка adc1
   sprintf (msg_UART_TX, "adc_calibrate\r\n");
   HAL_UART_Transmit (&huart1, (uint8_t*)msg_UART_TX, strlen(msg_UART_TX), 0xFF);
+
   HAL_ADC_Start_DMA(&hadc1, (uint32_t*)&adc, 2); // стартуем АЦП с DMA
+
+  TIM_OC_InitTypeDef myConfigOC = {0}; //инициализируем структуру с настройками ШИМ
+  myConfigOC.OCMode = TIM_OCMODE_PWM1;
+  myConfigOC.Pulse = 0;
+  myConfigOC.OCPolarity = TIM_OCPOLARITY_HIGH;
+  myConfigOC.OCFastMode = TIM_OCFAST_DISABLE;
+  HAL_TIM_PWM_ConfigChannel (&htim3, &myConfigOC, TIM_CHANNEL_2);
+  HAL_TIM_PWM_Start(&htim3, TIM_CHANNEL_2); //запуск канала 2 таймера ШИМ
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -121,14 +136,6 @@ int main(void)
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
-/*	HAL_GPIO_TogglePin (LED_GPIO_Port, LED_Pin);
-	HAL_ADC_Start(&hadc1); // запускаем преобразование сигнала АЦП
-	HAL_ADC_PollForConversion(&hadc1, 100); // ожидаем окончания преобразования
-	value_adc = HAL_ADC_GetValue(&hadc1); // читаем полученное значение в переменную adc
-	HAL_ADC_Stop(&hadc1); // останавливаем АЦП (не обязательно)
-	sprintf(msg_UART_TX,  "ADC=%hd\n", (uint16_t)value_adc);
-	HAL_UART_Transmit(&huart1, (uint8_t*)msg_UART_TX, strlen(msg_UART_TX), 1000);
-	HAL_Delay(1000);*/
 
  if (flag)
  {
@@ -137,9 +144,22 @@ int main(void)
 	 HAL_ADC_Stop_DMA(&hadc1); // останавливаем АЦП1
 	 sprintf(msg_UART_TX,  "ADC %hd %hd\n\r", (uint16_t)adc[0], (uint16_t)adc[1]);
 	 HAL_UART_Transmit(&huart1, (uint8_t*)msg_UART_TX, strlen(msg_UART_TX), 1000);
-	 adc[0] = 0;
-	 adc[1] = 0;
-	 HAL_Delay(500);
+	 if (adc[1] >= adc[0])
+	 	 {
+		 HAL_TIM_PWM_Stop(&htim3, TIM_CHANNEL_2); //остановим ШИМ
+		 myConfigOC.Pulse = adc [1] - adc [0]; //впишем в нашу настройку длительности импульса ШИМ разницу между полученными значениями
+		 HAL_TIM_PWM_ConfigChannel (&htim3, &myConfigOC, TIM_CHANNEL_2); //запишем новую настройку
+		 HAL_TIM_PWM_Start(&htim3, TIM_CHANNEL_2); //запустим ШИМ
+	 	 }
+	 else
+	 	 {
+		 HAL_TIM_PWM_Stop(&htim3, TIM_CHANNEL_2);
+		 myConfigOC.Pulse = adc [0] - adc [1]; //впишем в нашу настройку длительности импульса ШИМ разницу между полученными значениями
+		 HAL_TIM_PWM_ConfigChannel (&htim3, &myConfigOC, TIM_CHANNEL_2); //запишем новую настройку
+		 HAL_TIM_PWM_Start(&htim3, TIM_CHANNEL_2); //запустим ШИМ
+	 	 }
+	 adc[0] = 0; adc[1] = 0; //обнулим принятые значения АЦП
+	 HAL_Delay(250);
 	 HAL_ADC_Start_DMA(&hadc1, (uint32_t*)&adc, 2); // запускаем преобразование сигнала АЦП1
  }
 
@@ -242,6 +262,55 @@ static void MX_ADC1_Init(void)
   /* USER CODE BEGIN ADC1_Init 2 */
 
   /* USER CODE END ADC1_Init 2 */
+
+}
+
+/**
+  * @brief TIM3 Initialization Function
+  * @param None
+  * @retval None
+  */
+static void MX_TIM3_Init(void)
+{
+
+  /* USER CODE BEGIN TIM3_Init 0 */
+
+  /* USER CODE END TIM3_Init 0 */
+
+  TIM_MasterConfigTypeDef sMasterConfig = {0};
+  TIM_OC_InitTypeDef sConfigOC = {0};
+
+  /* USER CODE BEGIN TIM3_Init 1 */
+
+  /* USER CODE END TIM3_Init 1 */
+  htim3.Instance = TIM3;
+  htim3.Init.Prescaler = 4;
+  htim3.Init.CounterMode = TIM_COUNTERMODE_UP;
+  htim3.Init.Period = 4095;
+  htim3.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
+  htim3.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_DISABLE;
+  if (HAL_TIM_PWM_Init(&htim3) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  sMasterConfig.MasterOutputTrigger = TIM_TRGO_RESET;
+  sMasterConfig.MasterSlaveMode = TIM_MASTERSLAVEMODE_DISABLE;
+  if (HAL_TIMEx_MasterConfigSynchronization(&htim3, &sMasterConfig) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  sConfigOC.OCMode = TIM_OCMODE_PWM1;
+  sConfigOC.Pulse = 3005;
+  sConfigOC.OCPolarity = TIM_OCPOLARITY_HIGH;
+  sConfigOC.OCFastMode = TIM_OCFAST_DISABLE;
+  if (HAL_TIM_PWM_ConfigChannel(&htim3, &sConfigOC, TIM_CHANNEL_2) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  /* USER CODE BEGIN TIM3_Init 2 */
+
+  /* USER CODE END TIM3_Init 2 */
+  HAL_TIM_MspPostInit(&htim3);
 
 }
 
