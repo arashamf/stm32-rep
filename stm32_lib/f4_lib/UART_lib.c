@@ -136,7 +136,7 @@ void UART2_PutString(char *str)
 }
 
 //-------------------------------функция инициализации UART3 с прерыванием-----------------------------------//
-void UART3_init_IRQ (unsigned int freq, unsigned int bandwith)
+void UART3_init (unsigned int freq, unsigned int bandwith)
 {
 // настройка портов PD8 и PD9 для UART3
 RCC->AHB1ENR |= RCC_AHB1ENR_GPIODEN; //запускаем тактовый генератор порта D

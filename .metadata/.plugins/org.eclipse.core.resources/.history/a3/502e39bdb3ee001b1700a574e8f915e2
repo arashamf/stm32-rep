@@ -1,0 +1,21 @@
+/**
+  ******************************************************************************
+  * @file    main.c
+  * @author  Ac6
+  * @version V1.0
+  * @date    01-December-2013
+  * @brief   Default main function.
+  ******************************************************************************
+*/
+
+#include "delay_lib.h"
+#include "stm32f4xx.h"
+#include "MCU_ini.h"
+#include "SPI_lib.h"
+#include "UART_lib.h"
+
+int main(void)
+{
+
+	for(;;);
+}

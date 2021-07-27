@@ -1,0 +1,29 @@
+16:04:40 **** Incremental Build of configuration Debug for project SPI_arduino ****
+make -j8 all 
+Building file: ../src/SPI_lib.c
+Invoking: MCU GCC Compiler
+D:\projects\stm32-rep\SPI_arduino\Debug
+arm-none-eabi-gcc -mcpu=cortex-m4 -mthumb -mfloat-abi=hard -mfpu=fpv4-sp-d16 -DSTM32 -DSTM32F4 -DSTM32F407VGTx -DSTM32F407G_DISC1 -DDEBUG -DSTM32F40XX -DSTM32F40_41xxx -DUSE_STDPERIPH_DRIVER -I"D:/projects/stm32-rep/SPI_arduino/StdPeriph_Driver/inc" -I"D:/projects/stm32-rep/SPI_arduino/inc" -I"D:/projects/stm32-rep/SPI_arduino/CMSIS/device" -I"D:/projects/stm32-rep/SPI_arduino/CMSIS/core" -O0 -g3 -Wall -fmessage-length=0 -ffunction-sections -c -MMD -MP -MF"src/SPI_lib.d" -MT"src/SPI_lib.o" -o "src/SPI_lib.o" "../src/SPI_lib.c"
+In file included from D:/projects/stm32-rep/SPI_arduino/inc/SPI_lib.h:11:0,
+                 from ../src/SPI_lib.c:9:
+D:/projects/stm32-rep/SPI_arduino/CMSIS/device/stm32f4xx.h:108:0: warning: "STM32F40_41xxx" redefined
+   #define STM32F40_41xxx
+ 
+<command-line>:0:0: note: this is the location of the previous definition
+Finished building: ../src/SPI_lib.c
+ 
+Building target: SPI_arduino.elf
+Invoking: MCU GCC Linker
+arm-none-eabi-gcc -mcpu=cortex-m4 -mthumb -mfloat-abi=hard -mfpu=fpv4-sp-d16 -T"D:/projects/stm32-rep/SPI_arduino/LinkerScript.ld" -Wl,-Map=output.map -Wl,--gc-sections -o "SPI_arduino.elf" @"objects.list"   -lm
+Finished building target: SPI_arduino.elf
+ 
+make --no-print-directory post-build
+Generating binary and Printing size information:
+arm-none-eabi-objcopy -O binary "SPI_arduino.elf" "SPI_arduino.bin"
+arm-none-eabi-size "SPI_arduino.elf"
+   text	   data	    bss	    dec	    hex	filename
+  26196	   2508	   1224	  29928	   74e8	SPI_arduino.elf
+ 
+16:04:43 **** Incremental Build of configuration Debug for project SPI_arduino ****
+make -j8 all 
+make: Nothing to be done for 'all'.

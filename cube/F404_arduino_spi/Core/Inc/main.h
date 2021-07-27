@@ -64,8 +64,8 @@ void Error_Handler(void);
 #define PH1_OSC_OUT_GPIO_Port GPIOH
 #define B1_Pin GPIO_PIN_0
 #define B1_GPIO_Port GPIOA
-#define CS_Pin GPIO_PIN_1
-#define CS_GPIO_Port GPIOA
+#define CS_Pin GPIO_PIN_12
+#define CS_GPIO_Port GPIOB
 #define LD4_Pin GPIO_PIN_12
 #define LD4_GPIO_Port GPIOD
 #define LD3_Pin GPIO_PIN_13
@@ -75,8 +75,8 @@ void Error_Handler(void);
 #define LD6_Pin GPIO_PIN_15
 #define LD6_GPIO_Port GPIOD
 /* USER CODE BEGIN Private defines */
-#define CS_ON HAL_GPIO_WritePin (CS_GPIO_Port, CS_Pin, DISABLE)
-#define CS_OFF HAL_GPIO_WritePin (CS_GPIO_Port, CS_Pin, ENABLE)
+#define CS_ON HAL_GPIO_WritePin (CS_GPIO_Port, CS_Pin, DISABLE) //активируем чип-селект
+#define CS_OFF HAL_GPIO_WritePin (CS_GPIO_Port, CS_Pin, ENABLE) //выключим чип-селект
 /* USER CODE END Private defines */
 
 #ifdef __cplusplus

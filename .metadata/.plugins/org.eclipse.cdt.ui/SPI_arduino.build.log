@@ -1,0 +1,6 @@
+16:04:43 **** Incremental Build of configuration Debug for project SPI_arduino ****
+make -j8 all 
+make: Nothing to be done for 'all'.
+
+16:04:44 Build Finished (took 362ms)
+
