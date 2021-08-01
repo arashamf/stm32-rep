@@ -18,8 +18,9 @@
 #define msg_SIZE 50 //размер массива дл¤ формировани¤ сообщений дл¤ отправки по UART
 char msg_UART_Tx [msg_SIZE]; // массив дл¤ формировани¤ сообщений дл¤ отправки по UART
 
-uint8_t SPI_data = 0;
+uint8_t SPI_data [4];
 uint8_t point = 0xCA;
+float temp = 0;
 
 int main(void)
 {
@@ -55,22 +56,10 @@ int main(void)
 	{
 		GPIO_ToggleBits (LED_Port, LED4_Pin);
 		GPIO_ToggleBits (LED_Port, LED3_Pin);
-		CS_ON;
-		while (SPI_I2S_GetFlagStatus(SPI2, SPI_I2S_FLAG_TXE) == RESET) {};  //ожидаем пока буфер передачи не пуст
-		SPI_I2S_SendData (SPI2, point);
-		while (SPI_I2S_GetFlagStatus(SPI2, SPI_I2S_FLAG_TXE) == RESET) {}; //ожидаем пока буфер передачи не пуст
-		while (SPI_I2S_GetFlagStatus(SPI2, SPI_I2S_FLAG_RXNE) == RESET) {}; //ожидаем пока буфер приёма пуст
-		SPI_data = (uint8_t) SPI_I2S_ReceiveData (SPI2);
-		while (SPI_I2S_GetFlagStatus(SPI2, SPI_I2S_FLAG_TXE) == RESET) {};  //ожидаем пока буфер передачи не пуст
-		SPI_I2S_SendData (SPI2, point);
-		while (SPI_I2S_GetFlagStatus(SPI2, SPI_I2S_FLAG_TXE) == RESET) {}; //ожидаем пока буфер передачи не пуст
-		while (SPI_I2S_GetFlagStatus(SPI2, SPI_I2S_FLAG_RXNE) == RESET) {}; //ожидаем пока буфер приёма пуст
-		(void) SPI_I2S_ReceiveData (SPI2);
-		delay_us (10);
-		CS_OFF;
-		sprintf (msg_UART_Tx, "data = %u\r\n", SPI_data);
+		SPI2_read_array_ARDUINO (point, SPI_data, 4);
+		sprintf (msg_UART_Tx, "data = %u %u %u %u\r\n", SPI_data[0], SPI_data[1], SPI_data[2], SPI_data[3]);
 		UART2_PutString (msg_UART_Tx);
-		delay_ms (1500);
+		delay_ms (2500);
 	}
 
 }

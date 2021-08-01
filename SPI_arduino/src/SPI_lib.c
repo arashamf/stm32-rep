@@ -7,7 +7,7 @@
 
 
 #include "SPI_lib.h"
-
+#include "delay_lib.h"
 //-------------------------функция инициализации SPI1-------------------------------//
 void SPI1_ini ()
 {
@@ -95,7 +95,7 @@ void SPI2_ini ()
 uint8_t SPI2_read_byte (uint8_t adress)
 {
 	uint8_t SPI2_data= 0;
-	SPI_SSOutputCmd(SPI2, ENABLE); //включим вывод CS
+	CS_ON; //включим вывод CS
 	while (SPI_I2S_GetFlagStatus(SPI2, SPI_I2S_FLAG_TXE) == RESET) {};  //ожидаем пока буфер передачи не пуст
 	*(uint8_t*)&SPI2->DR = (adress + Cmd_Read); //записываем адрес регистра и бит чтения
 	while (SPI_I2S_GetFlagStatus(SPI2, SPI_I2S_FLAG_TXE) == RESET) {}; //ожидаем пока буфер передачи не пуст
@@ -106,27 +106,25 @@ uint8_t SPI2_read_byte (uint8_t adress)
 	while (SPI_I2S_GetFlagStatus(SPI2, SPI_I2S_FLAG_TXE) == RESET) {}; //ожидаем пока буфер передачи не пуст
 	while (SPI_I2S_GetFlagStatus(SPI2, SPI_I2S_FLAG_RXNE) == RESET) {}; //ожидаем пока буфер приёма пуст
 	SPI2_data = *(uint8_t*)&SPI2->DR; //получаем полезные данные
-	SPI_SSOutputCmd(SPI2, DISABLE); //отключим вывод CS
+	CS_OFF; //отключим вывод CS
 	return SPI2_data;
 }
 
 //-----------------------------ф-я записи байта по SPI2---------------------------//
 void SPI2_write_byte (uint8_t adress, uint8_t data)
 {
-	SPI_SSOutputCmd(SPI2, ENABLE); //включим вывод CS
+	CS_ON; //включим вывод CS
 	while (SPI_I2S_GetFlagStatus(SPI2, SPI_I2S_FLAG_TXE) == RESET) {};
 	*(uint8_t*)&SPI2->DR = (adress + Cmd_Write); //записываем адрес регистра и бит записи
-	//SPI2->DR = (adress + LIS3DSH_Cmd_Write);
 	while (SPI_I2S_GetFlagStatus(SPI2, SPI_I2S_FLAG_TXE) == RESET) {};
 	while (SPI_I2S_GetFlagStatus(SPI2, SPI_I2S_FLAG_RXNE) == RESET) {};
 	(void) SPI2->DR;  //считываем регистр ненужных данных
 	while (SPI_I2S_GetFlagStatus(SPI2, SPI_I2S_FLAG_TXE) == RESET) {};
 	*(uint8_t*)&SPI2->DR = data; //записываем полезные данные
-	//SPI2->DR = data;
 	while (SPI_I2S_GetFlagStatus(SPI2, SPI_I2S_FLAG_TXE) == RESET) {};
 	while (SPI_I2S_GetFlagStatus(SPI2, SPI_I2S_FLAG_RXNE) == RESET) {};
 	(void) SPI2->DR; //считываем регистр ненужных данных
-	SPI_SSOutputCmd(SPI2, DISABLE); //отключим вывод CS
+	CS_OFF; //отключим вывод CS
 }
 
 //-----------------------------ф-я чтения данных массива по SPI2---------------------------//
@@ -144,3 +142,25 @@ void SPI2_read_array(uint8_t adress, char *data, uint8_t data_len)  //data_len -
 }
 
 
+//-----------------------------ф-я чтения данных массива по SPI2 из ARDUINO---------------------------//
+void SPI2_read_array_ARDUINO(uint8_t point, char *data, uint8_t data_len)  //data_len - количество байт необходимых получить
+{
+	CS_ON;
+	while (SPI_I2S_GetFlagStatus(SPI2, SPI_I2S_FLAG_TXE) == RESET) {};  //ожидаем пока буфер передачи не опустеет
+	SPI_I2S_SendData (SPI2, point);
+	for(uint8_t count = 0; count <= data_len; count++)
+		{
+		if(count == data_len)
+			{
+			CS_OFF; //отключим вывод CS;
+			break;
+			}
+		while (SPI_I2S_GetFlagStatus(SPI2, SPI_I2S_FLAG_TXE) == RESET) {}; //ожидаем пока буфер передачи не опустеет
+		while (SPI_I2S_GetFlagStatus(SPI2, SPI_I2S_FLAG_RXNE) == RESET) {}; //ожидаем пока буфер приёма получит данные
+		*data++ = (uint8_t) SPI_I2S_ReceiveData (SPI2);
+		while (SPI_I2S_GetFlagStatus(SPI2, SPI_I2S_FLAG_TXE) == RESET) {};  //ожидаем пока буфер передачи не опустеет
+		SPI_I2S_SendData (SPI2, 0x0);
+		}
+	delay_us (10);
+	CS_OFF;
+}
