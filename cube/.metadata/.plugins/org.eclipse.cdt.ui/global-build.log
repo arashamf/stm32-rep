@@ -1,17 +1,24 @@
-16:19:48 **** Incremental Build of configuration Debug for project F404_arduino_spi ****
-make -j8 all 
-arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F407xx -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
-arm-none-eabi-gcc -o "F404_arduino_spi.elf" @"objects.list"   -mcpu=cortex-m4 -T"D:\projects\stm32-rep\cube\F404_arduino_spi\STM32F407VGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="F404_arduino_spi.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
-Finished building target: F404_arduino_spi.elf
+18:47:31 **** Incremental Build of configuration Debug for project f103_IWDG ****
+make -j4 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m3 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F103xB -c -I../Core/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Core/Src/main.o"
+arm-none-eabi-gcc -o "f103_IWDG.elf" @"objects.list"   -mcpu=cortex-m3 -T"/home/arashamf/projects/pr-stm32/cube/f103_IWDG/STM32F103C8TX_FLASH.ld" --specs=nosys.specs -Wl,-Map="f103_IWDG.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: f103_IWDG.elf
  
-arm-none-eabi-objdump -h -S  F404_arduino_spi.elf  > "F404_arduino_spi.list"
-arm-none-eabi-objcopy  -O binary  F404_arduino_spi.elf  "F404_arduino_spi.bin"
-arm-none-eabi-size   F404_arduino_spi.elf 
+arm-none-eabi-objdump -h -S  f103_IWDG.elf  > "f103_IWDG.list"
+arm-none-eabi-objcopy  -O binary  f103_IWDG.elf  "f103_IWDG.bin"
+arm-none-eabi-size   f103_IWDG.elf 
    text	   data	    bss	    dec	    hex	filename
-  12464	    124	   1812	  14400	   3840	F404_arduino_spi.elf
+   8724	    120	   1728	  10572	   294c	f103_IWDG.elf
+Finished building: f103_IWDG.bin
 Finished building: default.size.stdout
  
-Finished building: F404_arduino_spi.bin
+Finished building: f103_IWDG.list
  
-Finished building: F404_arduino_spi.list
+ 
+18:47:35 **** Incremental Build of configuration Debug for project f103_IWDG ****
+make -j4 all 
+arm-none-eabi-size   f103_IWDG.elf 
+   text	   data	    bss	    dec	    hex	filename
+   8724	    120	   1728	  10572	   294c	f103_IWDG.elf
+Finished building: default.size.stdout
  
