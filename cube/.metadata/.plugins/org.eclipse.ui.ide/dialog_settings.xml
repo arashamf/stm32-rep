@@ -9,6 +9,10 @@
 		<item key="SmartImportRootWizardPage.STORE_NESTED_PROJECTS" value="true"/>
 		<item key="SmartImportRootWizardPage.STORE_CONFIGURE_NATURES" value="true"/>
 		<list key="org.eclipse.ui.internal.wizards.datatransfer.SmartImportRootWizardPage.knownSources">
+			<item value="C:\Users\Пользователь\STM32Cube\Repository\STM32Cube_FW_G4_V1.4.0\Projects\NUCLEO-G474RE\Examples\HRTIM\HRTIM_Basic_SinglePWM\STM32CubeIDE"/>
+			<item value="C:\Users\Пользователь\STM32Cube\Repository\STM32Cube_FW_G4_V1.4.0\Projects\NUCLEO-G474RE\Examples\HRTIM\HRTIM_Basic_MultiplePWM\STM32CubeIDE"/>
+			<item value="D:\projects\stm32-rep\cube\F405_hub"/>
+			<item value="D:\projects\stm32-rep\cube\f103_IWDG"/>
 			<item value="/home/arashamf/projects/pr-stm32/cube/f103_pwm"/>
 			<item value="D:\projects\stm32-rep\cube\f103_pwm"/>
 			<item value="D:\projects\stm32-rep\cube\cube_rcc"/>

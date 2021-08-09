@@ -1,0 +1,10 @@
+10:39:39 **** Incremental Build of configuration Debug for project f103_iwdg_c ****
+make -j8 all 
+arm-none-eabi-size   f103_iwdg_c.elf 
+   text	   data	    bss	    dec	    hex	filename
+  11300	    120	   1800	  13220	   33a4	f103_iwdg_c.elf
+Finished building: default.size.stdout
+ 
+
+10:39:39 Build Finished. 0 errors, 0 warnings. (took 300ms)
+

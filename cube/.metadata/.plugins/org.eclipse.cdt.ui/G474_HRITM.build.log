@@ -1,0 +1,20 @@
+15:33:16 **** Incremental Build of configuration Debug for project G474_HRITM ****
+make -j8 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32G474xx -c -I../Core/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32G4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+arm-none-eabi-gcc -o "G474_HRITM.elf" @"objects.list"   -mcpu=cortex-m4 -T"D:\projects\stm32-rep\cube\G474_HRITM\STM32G474CETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="G474_HRITM.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: G474_HRITM.elf
+ 
+arm-none-eabi-objdump -h -S  G474_HRITM.elf  > "G474_HRITM.list"
+arm-none-eabi-objcopy  -O binary  G474_HRITM.elf  "G474_HRITM.bin"
+arm-none-eabi-size   G474_HRITM.elf 
+   text	   data	    bss	    dec	    hex	filename
+  15760	     20	   1964	  17744	   4550	G474_HRITM.elf
+Finished building: default.size.stdout
+ 
+Finished building: G474_HRITM.bin
+ 
+Finished building: G474_HRITM.list
+ 
+
+15:33:17 Build Finished. 0 errors, 0 warnings. (took 1s.248ms)
+
