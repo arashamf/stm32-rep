@@ -1,44 +1,17 @@
-15:42:03 **** Build of configuration Debug for project HRTIM_Basic_SinglePWM ****
+16:39:23 **** Incremental Build of configuration Debug for project f103_sleep ****
 make -j8 all 
-arm-none-eabi-gcc "C:/Users/Пользователь/STM32Cube/Repository/STM32Cube_FW_G4_V1.4.0/Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DUSE_HAL_DRIVER -DSTM32G474xx -DUSE_NUCLEO_64 -DDEBUG -c -I../../../../../../../Drivers/CMSIS/Device/ST/STM32G4xx/Include -I../../../../../../../Drivers/STM32G4xx_HAL_Driver/Inc/Legacy -I../../Inc -I../../../../../../../Drivers/STM32G4xx_HAL_Driver/Inc -I../../../../../../../Drivers/BSP/STM32G4xx_Nucleo -I../../../../../../../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Drivers/STM32G4xx_HAL_Driver/stm32g4xx_hal.d" -MT"Drivers/STM32G4xx_HAL_Driver/stm32g4xx_hal.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Drivers/STM32G4xx_HAL_Driver/stm32g4xx_hal.o"
-arm-none-eabi-gcc "C:/Users/Пользователь/STM32Cube/Repository/STM32Cube_FW_G4_V1.4.0/Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_cortex.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DUSE_HAL_DRIVER -DSTM32G474xx -DUSE_NUCLEO_64 -DDEBUG -c -I../../../../../../../Drivers/CMSIS/Device/ST/STM32G4xx/Include -I../../../../../../../Drivers/STM32G4xx_HAL_Driver/Inc/Legacy -I../../Inc -I../../../../../../../Drivers/STM32G4xx_HAL_Driver/Inc -I../../../../../../../Drivers/BSP/STM32G4xx_Nucleo -I../../../../../../../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Drivers/STM32G4xx_HAL_Driver/stm32g4xx_hal_cortex.d" -MT"Drivers/STM32G4xx_HAL_Driver/stm32g4xx_hal_cortex.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Drivers/STM32G4xx_HAL_Driver/stm32g4xx_hal_cortex.o"
-arm-none-eabi-gcc "C:/Users/Пользователь/STM32Cube/Repository/STM32Cube_FW_G4_V1.4.0/Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_dma.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DUSE_HAL_DRIVER -DSTM32G474xx -DUSE_NUCLEO_64 -DDEBUG -c -I../../../../../../../Drivers/CMSIS/Device/ST/STM32G4xx/Include -I../../../../../../../Drivers/STM32G4xx_HAL_Driver/Inc/Legacy -I../../Inc -I../../../../../../../Drivers/STM32G4xx_HAL_Driver/Inc -I../../../../../../../Drivers/BSP/STM32G4xx_Nucleo -I../../../../../../../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Drivers/STM32G4xx_HAL_Driver/stm32g4xx_hal_dma.d" -MT"Drivers/STM32G4xx_HAL_Driver/stm32g4xx_hal_dma.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Drivers/STM32G4xx_HAL_Driver/stm32g4xx_hal_dma.o"
-arm-none-eabi-gcc "C:/Users/Пользователь/STM32Cube/Repository/STM32Cube_FW_G4_V1.4.0/Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_dma_ex.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DUSE_HAL_DRIVER -DSTM32G474xx -DUSE_NUCLEO_64 -DDEBUG -c -I../../../../../../../Drivers/CMSIS/Device/ST/STM32G4xx/Include -I../../../../../../../Drivers/STM32G4xx_HAL_Driver/Inc/Legacy -I../../Inc -I../../../../../../../Drivers/STM32G4xx_HAL_Driver/Inc -I../../../../../../../Drivers/BSP/STM32G4xx_Nucleo -I../../../../../../../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Drivers/STM32G4xx_HAL_Driver/stm32g4xx_hal_dma_ex.d" -MT"Drivers/STM32G4xx_HAL_Driver/stm32g4xx_hal_dma_ex.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Drivers/STM32G4xx_HAL_Driver/stm32g4xx_hal_dma_ex.o"
-arm-none-eabi-gcc "C:/Users/Пользователь/STM32Cube/Repository/STM32Cube_FW_G4_V1.4.0/Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_exti.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DUSE_HAL_DRIVER -DSTM32G474xx -DUSE_NUCLEO_64 -DDEBUG -c -I../../../../../../../Drivers/CMSIS/Device/ST/STM32G4xx/Include -I../../../../../../../Drivers/STM32G4xx_HAL_Driver/Inc/Legacy -I../../Inc -I../../../../../../../Drivers/STM32G4xx_HAL_Driver/Inc -I../../../../../../../Drivers/BSP/STM32G4xx_Nucleo -I../../../../../../../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Drivers/STM32G4xx_HAL_Driver/stm32g4xx_hal_exti.d" -MT"Drivers/STM32G4xx_HAL_Driver/stm32g4xx_hal_exti.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Drivers/STM32G4xx_HAL_Driver/stm32g4xx_hal_exti.o"
-arm-none-eabi-gcc "C:/Users/Пользователь/STM32Cube/Repository/STM32Cube_FW_G4_V1.4.0/Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_flash.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DUSE_HAL_DRIVER -DSTM32G474xx -DUSE_NUCLEO_64 -DDEBUG -c -I../../../../../../../Drivers/CMSIS/Device/ST/STM32G4xx/Include -I../../../../../../../Drivers/STM32G4xx_HAL_Driver/Inc/Legacy -I../../Inc -I../../../../../../../Drivers/STM32G4xx_HAL_Driver/Inc -I../../../../../../../Drivers/BSP/STM32G4xx_Nucleo -I../../../../../../../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Drivers/STM32G4xx_HAL_Driver/stm32g4xx_hal_flash.d" -MT"Drivers/STM32G4xx_HAL_Driver/stm32g4xx_hal_flash.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Drivers/STM32G4xx_HAL_Driver/stm32g4xx_hal_flash.o"
-arm-none-eabi-gcc "C:/Users/Пользователь/STM32Cube/Repository/STM32Cube_FW_G4_V1.4.0/Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_flash_ex.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DUSE_HAL_DRIVER -DSTM32G474xx -DUSE_NUCLEO_64 -DDEBUG -c -I../../../../../../../Drivers/CMSIS/Device/ST/STM32G4xx/Include -I../../../../../../../Drivers/STM32G4xx_HAL_Driver/Inc/Legacy -I../../Inc -I../../../../../../../Drivers/STM32G4xx_HAL_Driver/Inc -I../../../../../../../Drivers/BSP/STM32G4xx_Nucleo -I../../../../../../../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Drivers/STM32G4xx_HAL_Driver/stm32g4xx_hal_flash_ex.d" -MT"Drivers/STM32G4xx_HAL_Driver/stm32g4xx_hal_flash_ex.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Drivers/STM32G4xx_HAL_Driver/stm32g4xx_hal_flash_ex.o"
-arm-none-eabi-gcc "C:/Users/Пользователь/STM32Cube/Repository/STM32Cube_FW_G4_V1.4.0/Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_flash_ramfunc.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DUSE_HAL_DRIVER -DSTM32G474xx -DUSE_NUCLEO_64 -DDEBUG -c -I../../../../../../../Drivers/CMSIS/Device/ST/STM32G4xx/Include -I../../../../../../../Drivers/STM32G4xx_HAL_Driver/Inc/Legacy -I../../Inc -I../../../../../../../Drivers/STM32G4xx_HAL_Driver/Inc -I../../../../../../../Drivers/BSP/STM32G4xx_Nucleo -I../../../../../../../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Drivers/STM32G4xx_HAL_Driver/stm32g4xx_hal_flash_ramfunc.d" -MT"Drivers/STM32G4xx_HAL_Driver/stm32g4xx_hal_flash_ramfunc.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Drivers/STM32G4xx_HAL_Driver/stm32g4xx_hal_flash_ramfunc.o"
-arm-none-eabi-gcc: error: C:/Users/????????????????????????/STM32Cube/Repository/STM32Cube_FW_G4_V1.4.0/Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal.c: Invalid argument
-arm-none-eabi-gcc: fatal error: no input files
-compilation terminated.
-arm-none-eabi-gcc: error: C:/Users/????????????????????????/STM32Cube/Repository/STM32Cube_FW_G4_V1.4.0/Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_dma.c: Invalid argument
-arm-none-eabi-gcc: fatal error: no input files
-compilation terminated.
-arm-none-eabi-gcc: error: C:/Users/????????????????????????/STM32Cube/Repository/STM32Cube_FW_G4_V1.4.0/Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_cortex.c: Invalid argument
-arm-none-eabi-gcc: fatal error: no input files
-compilation terminated.
-arm-none-eabi-gcc: error: C:/Users/????????????????????????/STM32Cube/Repository/STM32Cube_FW_G4_V1.4.0/Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_exti.c: Invalid argument
-arm-none-eabi-gcc: error: C:/Users/????????????????????????/STM32Cube/Repository/STM32Cube_FW_G4_V1.4.0/Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_flash.c: Invalid argument
-arm-none-eabi-gcc: fatal error: no input files
-compilation terminated.
-arm-none-eabi-gcc: fatal error: no input files
-compilation terminated.
-arm-none-eabi-gcc: error: C:/Users/????????????????????????/STM32Cube/Repository/STM32Cube_FW_G4_V1.4.0/Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_dma_ex.c: Invalid argument
-arm-none-eabi-gcc: fatal error: no input files
-compilation terminated.
-make: *** [Drivers/STM32G4xx_HAL_Driver/subdir.mk:77: Drivers/STM32G4xx_HAL_Driver/stm32g4xx_hal_dma.o] Error 1
-make: *** Waiting for unfinished jobs....
-make: *** [Drivers/STM32G4xx_HAL_Driver/subdir.mk:75: Drivers/STM32G4xx_HAL_Driver/stm32g4xx_hal_cortex.o] Error 1
-make: *** [Drivers/STM32G4xx_HAL_Driver/subdir.mk:73: Drivers/STM32G4xx_HAL_Driver/stm32g4xx_hal.o] Error 1
-arm-none-eabi-gcc: error: C:/Users/????????????????????????/STM32Cube/Repository/STM32Cube_FW_G4_V1.4.0/Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_flash_ramfunc.c: Invalid argument
-make: *** [Drivers/STM32G4xx_HAL_Driver/subdir.mk:83: Drivers/STM32G4xx_HAL_Driver/stm32g4xx_hal_flash.o] Error 1
-arm-none-eabi-gcc: fatal error: no input files
-make: *** [Drivers/STM32G4xx_HAL_Driver/subdir.mk:79: Drivers/STM32G4xx_HAL_Driver/stm32g4xx_hal_dma_ex.o] Error 1
-compilation terminated.
-make: *** [Drivers/STM32G4xx_HAL_Driver/subdir.mk:81: Drivers/STM32G4xx_HAL_Driver/stm32g4xx_hal_exti.o] Error 1
-make: *** [Drivers/STM32G4xx_HAL_Driver/subdir.mk:87: Drivers/STM32G4xx_HAL_Driver/stm32g4xx_hal_flash_ramfunc.o] Error 1
-arm-none-eabi-gcc: error: C:/Users/????????????????????????/STM32Cube/Repository/STM32Cube_FW_G4_V1.4.0/Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_flash_ex.c: Invalid argument
-arm-none-eabi-gcc: fatal error: no input files
-compilation terminated.
-make: *** [Drivers/STM32G4xx_HAL_Driver/subdir.mk:85: Drivers/STM32G4xx_HAL_Driver/stm32g4xx_hal_flash_ex.o] Error 1
-"make -j8 all" terminated with exit code 2. Build might be incomplete.
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m3 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F103xB -c -I../Core/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Core/Src/main.o"
+arm-none-eabi-gcc -o "f103_sleep.elf" @"objects.list"   -mcpu=cortex-m3 -T"D:\projects\stm32-rep\cube\f103_sleep\STM32F103C8TX_FLASH.ld" --specs=nosys.specs -Wl,-Map="f103_sleep.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: f103_sleep.elf
+ 
+arm-none-eabi-objdump -h -S  f103_sleep.elf  > "f103_sleep.list"
+arm-none-eabi-objcopy  -O binary  f103_sleep.elf  "f103_sleep.bin"
+arm-none-eabi-size   f103_sleep.elf 
+   text	   data	    bss	    dec	    hex	filename
+  12976	    120	   1736	  14832	   39f0	f103_sleep.elf
+Finished building: default.size.stdout
+ 
+Finished building: f103_sleep.bin
+ 
+Finished building: f103_sleep.list
+ 

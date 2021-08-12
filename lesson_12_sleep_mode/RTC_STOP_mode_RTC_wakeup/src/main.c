@@ -44,11 +44,11 @@ int main(void)
 {
 
 	uint8_t  status_RCC = 0;
-	status_RCC = HSI_ini (); //настройка генератора PLL (тактирование от HSE = 8MHz)
+	status_RCC = HSI_ini (); //настройка тактирования
 	SystemCoreClockUpdate ();  //обновим системную частоту
 	LEDS_ini (); //инициализируем LEDs
 	UART2_ini (); //инициализируем UART2
-	if (status_RCC) //если генератор PLL завёлся правильно
+	if (status_RCC) //если генератор HSI завёлся правильно
 		UART2_PutRAMString ("HSI clock ok\r\n");
 	else
 		UART2_PutRAMString ("HSI error\r\n");

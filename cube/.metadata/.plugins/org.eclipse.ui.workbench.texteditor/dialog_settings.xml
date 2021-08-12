@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <section name="Workbench">
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
-		<item key="selection" value="TIMB_PERIOD"/>
+		<item key="selection" value="RTC_HandleTypeDef"/>
 		<item key="wrap" value="true"/>
 		<item key="casesensitive" value="false"/>
 		<item key="wholeword" value="false"/>
 		<item key="incremental" value="false"/>
 		<item key="isRegEx" value="false"/>
 		<list key="findhistory">
+			<item value="RTC_HandleTypeDef"/>
 			<item value="TIMB_PERIOD"/>
 			<item value="sCommonRegs"/>
 			<item value="DLLCR"/>
@@ -22,7 +23,6 @@
 			<item value="TIM_Event_Source"/>
 			<item value="HAL_TIM_Base_GetState"/>
 			<item value="TIM_EVENTSOURCE_UPDATE "/>
-			<item value="HAL_TIM_Base_Init"/>
 		</list>
 		<list key="replacehistory">
 			<item value="message_tx"/>
