@@ -42,7 +42,7 @@ UART2_PutRAMString ("i don`t sleep)\r\n");
 int main(void)
 {
 	uint8_t  status_RCC = 0;
-	status_RCC = HSE_ini (); //настройка генератора PLL (тактирование от HSE = 8MHz)
+	status_RCC = HSE_ini (); //тактирование от HSE = 8MHz
 	LEDS_ini (); //инициализируем LEDs
 	UART2_ini (); //инициализируем UART2
 	if (status_RCC) //если генератор HSE завёлся правильно

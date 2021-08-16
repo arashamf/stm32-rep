@@ -66,8 +66,6 @@ int main(void)
 		{
 			GPIO_ToggleBits(GPIOD, GPIO_Pin_15); // включаем/отключаем светодиод
 			delay_ms (DELAY/2); // задержка
-/*			sprintf (msg, "RCC clock - %lu, SYSCLK = %lu, HCLK = %lu\r\n", (READ_REG (RCC->CFGR)), RCC_Clocks.SYSCLK_Frequency, RCC_Clocks.HCLK_Frequency);
-			UART2_PutRAMString (msg);*/
 		}
 	UART2_PutRAMString ("start mode STOP\r\n");
 	__WFI(); // переходим в спящий режим

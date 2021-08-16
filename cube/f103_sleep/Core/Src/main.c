@@ -16,6 +16,7 @@
   *
   ******************************************************************************
   */
+//Программа входа в режим SLEEP и выходу по сигналу аларма RTC
 /* USER CODE END Header */
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
@@ -55,7 +56,7 @@ static void MX_GPIO_Init(void);
 static void MX_USART1_UART_Init(void);
 static void MX_RTC_Init(void);
 /* USER CODE BEGIN PFP */
-
+void HAL_RTC_AlarmAEventCallback(RTC_HandleTypeDef *hrtc);
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
@@ -72,6 +73,7 @@ int main(void)
   /* USER CODE BEGIN 1 */
 	 RTC_TimeTypeDef sTime;
 	 RTC_AlarmTypeDef sAlarm;
+	 uint8_t count = 5;
   /* USER CODE END 1 */
 
   /* MCU Configuration--------------------------------------------------------*/
@@ -97,7 +99,6 @@ int main(void)
   /* USER CODE BEGIN 2 */
   sprintf (UART_msg_TX,"sleep_mode_start\r\n");
   HAL_UART_Transmit(&huart1, (unsigned char*)UART_msg_TX, strlen(UART_msg_TX), 0x1000);
-  HAL_PWR_EnterSLEEPMode(PWR_MAINREGULATOR_ON, PWR_SLEEPENTRY_WFI);
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -109,26 +110,26 @@ int main(void)
     /* USER CODE BEGIN 3 */
 	  sprintf (UART_msg_TX,"sleep...\r\n");
 	  HAL_UART_Transmit(&huart1, (unsigned char*)UART_msg_TX, strlen(UART_msg_TX), 0x1000);
-	  HAL_SuspendTick(); //разрешение прерывания по достижению 0 таймера  SysTick. Перед переходом в спящий режим SLEEP целесообразно бит TICKINT сбросить.
-	  HAL_PWR_EnterSLEEPMode(PWR_MAINREGULATOR_ON, PWR_SLEEPENTRY_WFI);
-	  HAL_ResumeTick();
-	  sTime.Hours = 1;
-	  sTime.Minutes = 0;
-	  sTime.Seconds = 0;
-	  if (HAL_RTC_SetTime(&hrtc, &sTime, RTC_FORMAT_BIN) != HAL_OK)
-	   {
-	     Error_Handler();
-	   }
-	  sAlarm.AlarmTime.Hours = 1;
-	  sAlarm.AlarmTime.Minutes = 0;
-	  sAlarm.AlarmTime.Seconds = 5;
-	  sAlarm.Alarm = RTC_ALARM_A;
-	  if (HAL_RTC_SetAlarm_IT(&hrtc, &sAlarm, RTC_FORMAT_BIN) != HAL_OK)
-	    {
-	      Error_Handler();
-	    }
+	  HAL_SuspendTick(); //Перед переходом в спящий режим SLEEP сбрасываем бит TICKINT, разрешающий прерывания по достижению 0 таймера SysTick
+	  HAL_PWR_EnterSLEEPMode (PWR_MAINREGULATOR_ON, PWR_SLEEPENTRY_WFI); //ф-я активации режима сна (Wait for Interrupt)
+	  HAL_ResumeTick(); //При выходе из режима SLEEP включаем прерывание таймера SysTick
 	  sprintf (UART_msg_TX,"wake up!\r\n");
 	  HAL_UART_Transmit(&huart1, (unsigned char*)UART_msg_TX, strlen(UART_msg_TX), 0x1000);
+
+	  sTime.Hours = 1; sTime.Minutes = 0; sTime.Seconds = 0;  //сброс часов RTC
+	  if (HAL_RTC_SetTime(&hrtc, &sTime, RTC_FORMAT_BIN) != HAL_OK) {
+	     Error_Handler();
+	   }
+
+	  sAlarm.AlarmTime.Hours = 1;   sAlarm.AlarmTime.Minutes = 0; sAlarm.AlarmTime.Seconds = count; //настрйока сигнала Alarma для срабатывания через таймера SysTick с
+	  sAlarm.Alarm = RTC_ALARM_A;
+	  if (HAL_RTC_SetAlarm_IT(&hrtc, &sAlarm, RTC_FORMAT_BIN) != HAL_OK) {
+	      Error_Handler();
+	  }
+
+	  count++;
+	  if (count > 10)
+		  count = 5;
   }
   /* USER CODE END 3 */
 }
@@ -232,7 +233,7 @@ static void MX_RTC_Init(void)
   */
   sAlarm.AlarmTime.Hours = 0x1;
   sAlarm.AlarmTime.Minutes = 0x0;
-  sAlarm.AlarmTime.Seconds = 0x10;
+  sAlarm.AlarmTime.Seconds = 0x5;
   sAlarm.Alarm = RTC_ALARM_A;
   if (HAL_RTC_SetAlarm_IT(&hrtc, &sAlarm, RTC_FORMAT_BCD) != HAL_OK)
   {
@@ -292,6 +293,11 @@ static void MX_GPIO_Init(void)
 }
 
 /* USER CODE BEGIN 4 */
+void HAL_RTC_AlarmAEventCallback(RTC_HandleTypeDef *hrtc)
+{
+        sprintf(UART_msg_TX, "ALARM\r\n");
+        HAL_UART_Transmit(&huart1, (unsigned char*)UART_msg_TX, strlen(UART_msg_TX), 0x1000);
+}
 
 /* USER CODE END 4 */
 

@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Delete resource &apos;f103_sleep&apos;" deleteContents="false" description="Delete resource &apos;f103_sleep&apos;" element1="/f103_sleep" flags="7" id="org.eclipse.ltk.core.refactoring.delete.resources" resources="1" stamp="1629140668127"/>
+</session>
