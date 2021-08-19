@@ -61,8 +61,8 @@ all: main-build
 main-build: f103_pwm_DMA.elf secondary-outputs
 
 # Tool invocations
-f103_pwm_DMA.elf: $(OBJS) $(USER_OBJS) /home/arashamf/projects/pr-stm32/cube/f103_pwm_DMA/STM32F103C8TX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
-	arm-none-eabi-gcc -o "f103_pwm_DMA.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m3 -T"/home/arashamf/projects/pr-stm32/cube/f103_pwm_DMA/STM32F103C8TX_FLASH.ld" --specs=nosys.specs -Wl,-Map="f103_pwm_DMA.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+f103_pwm_DMA.elf: $(OBJS) $(USER_OBJS) D:\projects\stm32-rep\cube\f103_pwm_DMA\STM32F103C8TX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
+	arm-none-eabi-gcc -o "f103_pwm_DMA.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m3 -T"D:\projects\stm32-rep\cube\f103_pwm_DMA\STM32F103C8TX_FLASH.ld" --specs=nosys.specs -Wl,-Map="f103_pwm_DMA.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
 	@echo 'Finished building target: $@'
 	@echo ' '
 

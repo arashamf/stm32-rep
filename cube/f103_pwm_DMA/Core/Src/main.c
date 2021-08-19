@@ -44,25 +44,35 @@
 
 /* Private variables ---------------------------------------------------------*/
 TIM_HandleTypeDef htim1;
-TIM_HandleTypeDef htim2;
 DMA_HandleTypeDef hdma_tim1_ch1;
 
 UART_HandleTypeDef huart1;
+DMA_HandleTypeDef hdma_usart1_tx;
 
 /* USER CODE BEGIN PV */
 unsigned int duty_ch1 = 50; // длительность импульсов Ш�?М канала 1 таймера1
 static char UART_msg_TX[msg_SIZE]; // массив для формирования сообщений для вывода по UART
 uint8_t flag = 1;
-uint32_t pwm_arr[100] = {  0,   20,   40,   60,    80,  100,  120,  140,  160,  180,
-					      200,  220,  240,  260,   280,  300,  320,  340,  360,  380,
-                          400,  420,  440,  460,   480,  500,  520,  540,  560,  580,
-                          600,  620,  640,  660,   680,  700,  720,  740,  760,  800,
-                          800,  820,  840,  820,   800,  820,  840,  860,  880,  900,
-                          990,  980,  960,  940,   920,  900,  880,  860,  840,  820,
-                          800,  780,  760,  740,   720,  700,  680,  660,  640,  620,
-                          600,  580,  560,  540,   520,  500,  480,  460,  440,  420,
-                          400,  380,  360,  340,   320,  300,  280,  260,  240,  220,
-                          200,  180,  160,  140,   120,  100,   80,   60,   40,  20  }; //массив формирования ШИМ
+uint32_t pwm_arr[200] = {  0,   10,   20,   30,    40,   50,   60,   70,   80,   90,
+						  100,  110,  120,  130,   140,  150,  160,  170,  180,  190,
+						  200,  210,  220,  230,   240,  250,  260,  270,  280,  290,
+					      300,  310,  320,  330,   340,  350,  360,  370,  380,  390,
+                          400,  410,  420,  430,   440,  450,  460,  470,  480,  490,
+						  500,  510,  520,  530,   540,  550,  560,  570,  580,  590,
+						  600,  610,  620,  630,   640,  650,  660,  670,  680,  690,
+						  700,  710,  720,  730,   740,  750,  760,  770,  780,  790,
+						  800,  810,  820,  830,   840,  850,  860,  870,  880,  890,
+						  900,  910,  920,  930,   940,  950,  960,  970,  980,  990,
+						  990,  980,  970,  960,   950,  940,  930,  920,  910,  900,
+						  890,  880,  870,  860,   850,  840,  830,  820,  810,  800,
+						  790,  780,  770,  760,   750,  740,  730,  720,  710,  700,
+						  690,  680,  670,  660,   650,  640,  630,  620,  610,  600,
+						  590,  580,  570,  560,   550,  540,  530,  520,  510,  500,
+						  490,  480,  470,  460,   450,  440,  430,  420,  410,  400,
+						  390,  380,  370,  360,   350,  340,  330,  320,  310,  300,
+						  290,  280,  270,  260,   250,  240,  230,  220,  210,  200,
+                          190,  180,  170,  160,   150,  140,  130,  120,  110,  100,
+						  90,   80,   70,   60,    50,   40,    30,   20,   10,  0	}; //массив формирования Ш�?М
 
 /* USER CODE END PV */
 
@@ -72,7 +82,6 @@ static void MX_GPIO_Init(void);
 static void MX_DMA_Init(void);
 static void MX_TIM1_Init(void);
 static void MX_USART1_UART_Init(void);
-static void MX_TIM2_Init(void);
 /* USER CODE BEGIN PFP */
 
 /* USER CODE END PFP */
@@ -80,7 +89,7 @@ static void MX_TIM2_Init(void);
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
 //прерывание 1 раз в 10 мс
-void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
+/*void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 {
         if(htim->Instance == TIM2) //check if the interrupt comes from TIM2
         {
@@ -107,13 +116,23 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
         		}
         	}
         }
- }
+ }*/
 
+//----------------------------------------------------------------------------------------//
 void HAL_TIM_PWM_PulseFinishedCallback(TIM_HandleTypeDef *htim)
 {
     HAL_TIM_PWM_Start_DMA(&htim1, TIM_CHANNEL_1, pwm_arr, 100);
     sprintf (UART_msg_TX,"next\r\n");
-    HAL_UART_Transmit(&huart1, (unsigned char*)UART_msg_TX, strlen(UART_msg_TX), 0x1000);
+    HAL_UART_Transmit_DMA(&huart1, (uint8_t*)UART_msg_TX, strlen(UART_msg_TX));
+}
+
+//----------------------------------------------------------------------------------------//
+void HAL_UART_TxCpltCallback(UART_HandleTypeDef *huart)
+{
+          if(huart == &huart1)
+          {
+
+          }
 }
 
 /* USER CODE END 0 */
@@ -149,13 +168,11 @@ int main(void)
   MX_DMA_Init();
   MX_TIM1_Init();
   MX_USART1_UART_Init();
-  MX_TIM2_Init();
   /* USER CODE BEGIN 2 */
 //  HAL_TIM_Base_Start_IT(&htim2);
-//  HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_1);
   HAL_TIM_PWM_Start_DMA(&htim1, TIM_CHANNEL_1, pwm_arr, 100);
   sprintf (UART_msg_TX,"pwm_start\r\n");
-  HAL_UART_Transmit(&huart1, (unsigned char*)UART_msg_TX, strlen(UART_msg_TX), 0x1000);
+  HAL_UART_Transmit_DMA(&huart1, (uint8_t*)UART_msg_TX, strlen(UART_msg_TX));
 
   /* USER CODE END 2 */
 
@@ -201,7 +218,7 @@ void SystemClock_Config(void)
   RCC_ClkInitStruct.ClockType = RCC_CLOCKTYPE_HCLK|RCC_CLOCKTYPE_SYSCLK
                               |RCC_CLOCKTYPE_PCLK1|RCC_CLOCKTYPE_PCLK2;
   RCC_ClkInitStruct.SYSCLKSource = RCC_SYSCLKSOURCE_PLLCLK;
-  RCC_ClkInitStruct.AHBCLKDivider = RCC_SYSCLK_DIV1;
+  RCC_ClkInitStruct.AHBCLKDivider = RCC_SYSCLK_DIV2;
   RCC_ClkInitStruct.APB1CLKDivider = RCC_HCLK_DIV1;
   RCC_ClkInitStruct.APB2CLKDivider = RCC_HCLK_DIV1;
 
@@ -232,7 +249,7 @@ static void MX_TIM1_Init(void)
 
   /* USER CODE END TIM1_Init 1 */
   htim1.Instance = TIM1;
-  htim1.Init.Prescaler = 319;
+  htim1.Init.Prescaler = 7999;
   htim1.Init.CounterMode = TIM_COUNTERMODE_UP;
   htim1.Init.Period = 999;
   htim1.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
@@ -287,51 +304,6 @@ static void MX_TIM1_Init(void)
 }
 
 /**
-  * @brief TIM2 Initialization Function
-  * @param None
-  * @retval None
-  */
-static void MX_TIM2_Init(void)
-{
-
-  /* USER CODE BEGIN TIM2_Init 0 */
-
-  /* USER CODE END TIM2_Init 0 */
-
-  TIM_ClockConfigTypeDef sClockSourceConfig = {0};
-  TIM_MasterConfigTypeDef sMasterConfig = {0};
-
-  /* USER CODE BEGIN TIM2_Init 1 */
-
-  /* USER CODE END TIM2_Init 1 */
-  htim2.Instance = TIM2;
-  htim2.Init.Prescaler = 319;
-  htim2.Init.CounterMode = TIM_COUNTERMODE_UP;
-  htim2.Init.Period = 999;
-  htim2.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
-  htim2.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_DISABLE;
-  if (HAL_TIM_Base_Init(&htim2) != HAL_OK)
-  {
-    Error_Handler();
-  }
-  sClockSourceConfig.ClockSource = TIM_CLOCKSOURCE_INTERNAL;
-  if (HAL_TIM_ConfigClockSource(&htim2, &sClockSourceConfig) != HAL_OK)
-  {
-    Error_Handler();
-  }
-  sMasterConfig.MasterOutputTrigger = TIM_TRGO_RESET;
-  sMasterConfig.MasterSlaveMode = TIM_MASTERSLAVEMODE_DISABLE;
-  if (HAL_TIMEx_MasterConfigSynchronization(&htim2, &sMasterConfig) != HAL_OK)
-  {
-    Error_Handler();
-  }
-  /* USER CODE BEGIN TIM2_Init 2 */
-
-  /* USER CODE END TIM2_Init 2 */
-
-}
-
-/**
   * @brief USART1 Initialization Function
   * @param None
   * @retval None
@@ -377,6 +349,9 @@ static void MX_DMA_Init(void)
   /* DMA1_Channel2_IRQn interrupt configuration */
   HAL_NVIC_SetPriority(DMA1_Channel2_IRQn, 0, 0);
   HAL_NVIC_EnableIRQ(DMA1_Channel2_IRQn);
+  /* DMA1_Channel4_IRQn interrupt configuration */
+  HAL_NVIC_SetPriority(DMA1_Channel4_IRQn, 0, 0);
+  HAL_NVIC_EnableIRQ(DMA1_Channel4_IRQn);
 
 }
 
@@ -397,22 +372,12 @@ static void MX_GPIO_Init(void)
   /*Configure GPIO pin Output Level */
   HAL_GPIO_WritePin(LED_GPIO_Port, LED_Pin, GPIO_PIN_RESET);
 
-  /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_11, GPIO_PIN_RESET);
-
   /*Configure GPIO pin : LED_Pin */
   GPIO_InitStruct.Pin = LED_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(LED_GPIO_Port, &GPIO_InitStruct);
-
-  /*Configure GPIO pin : PA11 */
-  GPIO_InitStruct.Pin = GPIO_PIN_11;
-  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
-  GPIO_InitStruct.Pull = GPIO_NOPULL;
-  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
-  HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
 
 }
 

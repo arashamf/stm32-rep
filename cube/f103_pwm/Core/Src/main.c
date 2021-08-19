@@ -34,7 +34,7 @@
 /* Private define ------------------------------------------------------------*/
 /* USER CODE BEGIN PD */
 #define msg_SIZE 60
-#define PERIOD 1000 //период импульсов Ш�?М
+#define PERIOD 100 //период импульсов ШИМ
 /* USER CODE END PD */
 
 /* Private macro -------------------------------------------------------------*/
@@ -50,7 +50,7 @@ UART_HandleTypeDef huart1;
 UART_HandleTypeDef huart2;
 
 /* USER CODE BEGIN PV */
-unsigned int duty_ch1 = 0; // длительность импульсов Ш�?М канала 1 таймера1
+unsigned int duty_ch1 = 0; // длительность импульсов ШИМ канала 1 таймера1
 uint8_t flag = 1;
 /* USER CODE END PV */
 
@@ -76,7 +76,7 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
         {
         	if (flag)
         	{
-        		duty_ch1 += PERIOD/1000; // прибавляем длительность импульса  PWM по 1
+        		duty_ch1 += PERIOD/100; // прибавляем длительность импульса  PWM по 1
         		TIM1->CCR1 = duty_ch1;
         		if(duty_ch1 >= PERIOD)
         		{
@@ -87,7 +87,7 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
         	}
         	else
         	{
-        		duty_ch1 -= PERIOD/1000; // убавляем длительность импульса PWM по 1
+        		duty_ch1 -= PERIOD/100; // убавляем длительность импульса PWM по 1
         		TIM1->CCR1 = duty_ch1;
         		if(duty_ch1 <= 1)
         		{
@@ -136,11 +136,13 @@ int main(void)
   MX_TIM2_Init();
   MX_USART2_UART_Init();
   /* USER CODE BEGIN 2 */
-//  HAL_TIM_PWM_Start_IT(&htim1, TIM_CHANNEL_1);
+  uint8_t count = 1;
+  TIM1->CCR1 = PERIOD/4; //Шим частотой 1 кГц
   HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_1);
-  HAL_TIM_Base_Start_IT(&htim2);
+//  HAL_TIM_Base_Start_IT(&htim2);
   sprintf (UART_msg_TX,"pwm_start\r\n");
   HAL_UART_Transmit(&huart1, (unsigned char*)UART_msg_TX, strlen(UART_msg_TX), 0x1000);
+  HAL_GPIO_WritePin (LED_GPIO_Port, LED_Pin, ENABLE);
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -150,6 +152,27 @@ int main(void)
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
+	 HAL_GPIO_TogglePin (LED_GPIO_Port, LED_Pin);
+	 switch (count)
+	 	 {
+	 	 case 1:
+	 		TIM1->CCR1 = PERIOD/4;
+	 		break;
+	 	case 2:
+	 		 TIM1->CCR1 = PERIOD/2;
+	 		 break;
+	 	case 3:
+	 		 TIM1->CCR1 = 3*(PERIOD/4);
+	 		 break;
+	 	default:
+	 		break;
+	 	 }
+	 sprintf (UART_msg_TX,"count = %d\r\n", count);
+	 HAL_UART_Transmit(&huart1, (unsigned char*)UART_msg_TX, strlen(UART_msg_TX), 0x1000);
+	 count++;
+	 if (count > 3)
+		 count = 1;
+	 HAL_Delay (1000);
   }
   /* USER CODE END 3 */
 }
@@ -215,7 +238,7 @@ static void MX_TIM1_Init(void)
   htim1.Instance = TIM1;
   htim1.Init.Prescaler = 159;
   htim1.Init.CounterMode = TIM_COUNTERMODE_UP;
-  htim1.Init.Period = 999;
+  htim1.Init.Period = 99;
   htim1.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
   htim1.Init.RepetitionCounter = 0;
   htim1.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_DISABLE;
@@ -385,10 +408,22 @@ static void MX_USART2_UART_Init(void)
   */
 static void MX_GPIO_Init(void)
 {
+  GPIO_InitTypeDef GPIO_InitStruct = {0};
 
   /* GPIO Ports Clock Enable */
   __HAL_RCC_GPIOD_CLK_ENABLE();
   __HAL_RCC_GPIOA_CLK_ENABLE();
+  __HAL_RCC_GPIOB_CLK_ENABLE();
+
+  /*Configure GPIO pin Output Level */
+  HAL_GPIO_WritePin(LED_GPIO_Port, LED_Pin, GPIO_PIN_RESET);
+
+  /*Configure GPIO pin : LED_Pin */
+  GPIO_InitStruct.Pin = LED_Pin;
+  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
+  HAL_GPIO_Init(LED_GPIO_Port, &GPIO_InitStruct);
 
 }
 
