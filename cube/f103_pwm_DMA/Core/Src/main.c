@@ -72,8 +72,8 @@ uint32_t pwm_arr[200] = {  0,   10,   20,   30,    40,   50,   60,   70,   80,  
 						  390,  380,  370,  360,   350,  340,  330,  320,  310,  300,
 						  290,  280,  270,  260,   250,  240,  230,  220,  210,  200,
                           190,  180,  170,  160,   150,  140,  130,  120,  110,  100,
-						  90,   80,   70,   60,    50,   40,    30,   20,   10,  0	}; //массив формирования Ш�?М
-
+						  90,   80,   70,   60,    50,   40,    30,   20,   10,  0	}; //массив формирования ШИМ
+//Частота шим: Fшим=Ftim/prescaler/period_counter; длительность передачи массива через DMA: Т=1/Fшим*Nэлементов_массива
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -118,15 +118,15 @@ static void MX_USART1_UART_Init(void);
         }
  }*/
 
-//----------------------------------------------------------------------------------------//
+//--------------------------------------колбэк прерывания от DMA таймера 1--------------------------------------------------//
 void HAL_TIM_PWM_PulseFinishedCallback(TIM_HandleTypeDef *htim)
 {
-    HAL_TIM_PWM_Start_DMA(&htim1, TIM_CHANNEL_1, pwm_arr, 100);
+    HAL_TIM_PWM_Start_DMA(&htim1, TIM_CHANNEL_1, pwm_arr, 200);
     sprintf (UART_msg_TX,"next\r\n");
     HAL_UART_Transmit_DMA(&huart1, (uint8_t*)UART_msg_TX, strlen(UART_msg_TX));
 }
 
-//----------------------------------------------------------------------------------------//
+//----------------------------------------------------колбэк прерывания от UART 1------------------------------------//
 void HAL_UART_TxCpltCallback(UART_HandleTypeDef *huart)
 {
           if(huart == &huart1)
@@ -170,7 +170,7 @@ int main(void)
   MX_USART1_UART_Init();
   /* USER CODE BEGIN 2 */
 //  HAL_TIM_Base_Start_IT(&htim2);
-  HAL_TIM_PWM_Start_DMA(&htim1, TIM_CHANNEL_1, pwm_arr, 100);
+  HAL_TIM_PWM_Start_DMA(&htim1, TIM_CHANNEL_1, pwm_arr, 200); //запуск таймера 1 для генерации Ш�?Ма через DMA
   sprintf (UART_msg_TX,"pwm_start\r\n");
   HAL_UART_Transmit_DMA(&huart1, (uint8_t*)UART_msg_TX, strlen(UART_msg_TX));
 
@@ -183,7 +183,7 @@ int main(void)
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
-	  HAL_GPIO_TogglePin(LED_GPIO_Port, LED_Pin);
+	  HAL_GPIO_TogglePin(LED_GPIO_Port, LED_Pin); //помигаем
 	  HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_11);
 	  HAL_Delay (1000);
   }
@@ -249,7 +249,7 @@ static void MX_TIM1_Init(void)
 
   /* USER CODE END TIM1_Init 1 */
   htim1.Instance = TIM1;
-  htim1.Init.Prescaler = 7999;
+  htim1.Init.Prescaler = 159;
   htim1.Init.CounterMode = TIM_COUNTERMODE_UP;
   htim1.Init.Period = 999;
   htim1.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;

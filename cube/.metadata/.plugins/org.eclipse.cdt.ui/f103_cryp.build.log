@@ -1,0 +1,10 @@
+11:19:17 **** Incremental Build of configuration Debug for project f103_cryp ****
+make -j8 all 
+arm-none-eabi-size   f103_cryp.elf 
+   text	   data	    bss	    dec	    hex	filename
+  11292	     52	   1708	  13052	   32fc	f103_cryp.elf
+Finished building: default.size.stdout
+ 
+
+11:19:18 Build Finished. 0 errors, 0 warnings. (took 298ms)
+
