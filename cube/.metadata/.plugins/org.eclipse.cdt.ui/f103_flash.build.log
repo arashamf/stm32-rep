@@ -1,0 +1,10 @@
+16:20:40 **** Incremental Build of configuration Debug for project f103_flash ****
+make -j8 all 
+arm-none-eabi-size   f103_flash.elf 
+   text	   data	    bss	    dec	    hex	filename
+   8368	    120	   1728	  10216	   27e8	f103_flash.elf
+Finished building: default.size.stdout
+ 
+
+16:20:40 Build Finished. 0 errors, 0 warnings. (took 238ms)
+

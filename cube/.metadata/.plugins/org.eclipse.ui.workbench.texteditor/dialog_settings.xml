@@ -8,6 +8,7 @@
 		<item key="incremental" value="false"/>
 		<item key="isRegEx" value="false"/>
 		<list key="findhistory">
+			<item value="ш"/>
 			<item value="RTC_HandleTypeDef"/>
 			<item value="TIMB_PERIOD"/>
 			<item value="sCommonRegs"/>
@@ -22,7 +23,6 @@
 			<item value="TIM_EVENTSOURCE"/>
 			<item value="TIM_Event_Source"/>
 			<item value="HAL_TIM_Base_GetState"/>
-			<item value="TIM_EVENTSOURCE_UPDATE "/>
 		</list>
 		<list key="replacehistory">
 			<item value="message_tx"/>

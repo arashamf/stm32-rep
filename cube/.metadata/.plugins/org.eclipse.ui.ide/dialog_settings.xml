@@ -2,6 +2,16 @@
 <section name="Workbench">
 	<section name="ExternalProjectImportWizard">
 		<item key="WizardProjectsImportPage.STORE_NESTED_PROJECTS" value="true"/>
+		<item key="WizardProjectsImportPage.STORE_COPY_PROJECT_ID" value="false"/>
+		<item key="WizardProjectsImportPage.STORE_ARCHIVE_SELECTED" value="false"/>
+		<item key="WizardProjectsImportPage.STORE_CLOSE_CREATED_PROJECTS_ID" value="false"/>
+		<item key="WizardProjectsImportPage.STORE_HIDE_CONFLICTING_PROJECTS_ID" value="false"/>
+		<list key="WizardProjectsImportPage.STORE_DIRECTORIES">
+			<item value="D:\projects\en.x-cube-cryptolib\STM32CubeExpansion_Crypto_V3.1.0\Fw_Crypto\STM32F1\Projects\STM32F103RB-Nucleo\AES\AES256_ECB"/>
+		</list>
+		<list key="WizardProjectsImportPage.STORE_ARCHIVES">
+			<item value=""/>
+		</list>
 	</section>
 	<section name="SmartImportWizard">
 		<item key="SmartImportRootWizardPage.STORE_HIDE_ALREADY_OPEN" value="false"/>
@@ -9,6 +19,9 @@
 		<item key="SmartImportRootWizardPage.STORE_NESTED_PROJECTS" value="true"/>
 		<item key="SmartImportRootWizardPage.STORE_CONFIGURE_NATURES" value="true"/>
 		<list key="org.eclipse.ui.internal.wizards.datatransfer.SmartImportRootWizardPage.knownSources">
+			<item value="D:\projects\stm32-rep\cube\f103_mosfet"/>
+			<item value="D:\projects\en.x-cube-cryptolib\STM32CubeExpansion_Crypto_V3.1.0\Fw_Crypto\STM32F1\Projects\STM32F103RB-Nucleo\AES\AES256_ECB\TrueSTUDIO"/>
+			<item value="D:\projects\en.x-cube-cryptolib\STM32CubeExpansion_Crypto_V3.1.0\Fw_Crypto\STM32F1\Projects\STM32F103RB-Nucleo\AES\AES256_ECB"/>
 			<item value="C:\Users\Пользователь\STM32Cube\Repository\STM32Cube_FW_G4_V1.4.0\Projects\NUCLEO-G474RE\Examples\HRTIM\HRTIM_Basic_SinglePWM\STM32CubeIDE"/>
 			<item value="C:\Users\Пользователь\STM32Cube\Repository\STM32Cube_FW_G4_V1.4.0\Projects\NUCLEO-G474RE\Examples\HRTIM\HRTIM_Basic_MultiplePWM\STM32CubeIDE"/>
 			<item value="D:\projects\stm32-rep\cube\F405_hub"/>
