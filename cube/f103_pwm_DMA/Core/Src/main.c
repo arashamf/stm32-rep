@@ -170,9 +170,9 @@ int main(void)
   MX_USART1_UART_Init();
   /* USER CODE BEGIN 2 */
 //  HAL_TIM_Base_Start_IT(&htim2);
-  HAL_TIM_PWM_Start_DMA(&htim1, TIM_CHANNEL_1, pwm_arr, 200); //запуск таймера 1 для генерации Ш�?Ма через DMA
+  HAL_TIM_PWM_Start_DMA(&htim1, TIM_CHANNEL_1, pwm_arr, 200); //запуск таймера 1 для генерации ШИМа через DMA
   sprintf (UART_msg_TX,"pwm_start\r\n");
-  HAL_UART_Transmit_DMA(&huart1, (uint8_t*)UART_msg_TX, strlen(UART_msg_TX));
+  HAL_UART_Transmit_DMA(&huart1, (uint8_t*)UART_msg_TX, strlen(UART_msg_TX)); //передача сообщения по UART1 через DMA
 
   /* USER CODE END 2 */
 

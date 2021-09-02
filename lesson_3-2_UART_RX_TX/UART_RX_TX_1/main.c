@@ -30,7 +30,7 @@ void USART3_IRQHandler(void)
 USART3->SR &= ~USART_SR_RXNE; // сбросим флаг прерывания
 GPIOD->BSRRL |= GPIO_BSRR_BS_12; // включаем светодиод
 buffer [ykaz_buffer++] = USART3->DR;  
-// 0x0D и 0xOA - код окончания данных, перевод каретки и новая строка соответсвенно
+
 if ((buffer [ykaz_buffer-2] == 0x0D) && (buffer [ykaz_buffer-1] == 0x0A)) // 0x0D и 0xOA - окончание данных
 	{
 	sprintf(msg,"You say - %s", buffer);

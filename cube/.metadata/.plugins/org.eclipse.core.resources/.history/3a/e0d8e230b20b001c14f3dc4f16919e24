@@ -47,7 +47,6 @@
 
 /* Private variables ---------------------------------------------------------*/
 UART_HandleTypeDef huart1;
-DMA_HandleTypeDef hdma_usart1_tx;
 
 /* USER CODE BEGIN PV */
 static char UART_msg_TX[msg_SIZE]; // массив для формирования сообщений для вывода по UART
@@ -57,7 +56,6 @@ static char UART_buf_RX[msg_SIZE]; // массив для полученных �
 /* Private function prototypes -----------------------------------------------*/
 void SystemClock_Config(void);
 static void MX_GPIO_Init(void);
-static void MX_DMA_Init(void);
 static void MX_USART1_UART_Init(void);
 /* USER CODE BEGIN PFP */
 
@@ -75,8 +73,6 @@ void HAL_UART_TxHalfCpltCallback(UART_HandleTypeDef *huart)
 {
         // передана половина данных
 }
-/*DMA вызывает два прерывания, первое после отправки половины буфера, а второе при завершении. Чтобы отключить половинку,
-нужно в файле stm32f1xx_hal_uart.c найти функцию HAL_UART_Transmit_DMA(...) и закомментировать строку huart->hdmatx->XferHalfCpltCallback = UART_DMATxHalfCplt*/
 
 //--------------------------------------колбэк прерывания от UART 1 при передаче полного сообщения-------------------------------------------//
 void HAL_UART_TxCpltCallback(UART_HandleTypeDef *huart)
@@ -116,7 +112,6 @@ int main(void)
 
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
-  MX_DMA_Init();
   MX_USART1_UART_Init();
   /* USER CODE BEGIN 2 */
   sprintf (UART_msg_TX,"flash_edit_start\r\n");
@@ -132,8 +127,6 @@ int main(void)
 
     /* USER CODE BEGIN 3 */
 	HAL_GPIO_TogglePin (LED_GPIO_Port, LED_Pin);
-	sprintf (UART_msg_TX,"led\r\n");
-	HAL_UART_Transmit_DMA (&huart1, (unsigned char*)UART_msg_TX, strlen(UART_msg_TX));
 	HAL_Delay (1000);
   }
   /* USER CODE END 3 */
@@ -207,22 +200,6 @@ static void MX_USART1_UART_Init(void)
   /* USER CODE BEGIN USART1_Init 2 */
 
   /* USER CODE END USART1_Init 2 */
-
-}
-
-/**
-  * Enable DMA controller clock
-  */
-static void MX_DMA_Init(void)
-{
-
-  /* DMA controller clock enable */
-  __HAL_RCC_DMA1_CLK_ENABLE();
-
-  /* DMA interrupt init */
-  /* DMA1_Channel4_IRQn interrupt configuration */
-  HAL_NVIC_SetPriority(DMA1_Channel4_IRQn, 0, 0);
-  HAL_NVIC_EnableIRQ(DMA1_Channel4_IRQn);
 
 }
 
