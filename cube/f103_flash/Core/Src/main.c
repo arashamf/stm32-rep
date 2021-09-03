@@ -50,8 +50,13 @@ UART_HandleTypeDef huart1;
 DMA_HandleTypeDef hdma_usart1_tx;
 
 /* USER CODE BEGIN PV */
-static char UART_msg_TX[msg_SIZE]; // массив для формирования сообщений для вывода по UART
-static char UART_buf_RX[msg_SIZE]; // массив для полученных сообщений по UART
+static char UART_msg_TX [msg_SIZE]; // массив для формирования сообщений для вывода по UART
+static unsigned char UART_buf_RX [128]; // массив для полученных сообщений по UART
+uint8_t * ptr = 0; // указатель на следующий символ в массиве
+uint8_t count = 0;
+uint8_t symbol = 0;
+/*volatile uint8_t index_r = 0;
+volatile uint8_t index_w = 0;*/
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -73,7 +78,10 @@ void write_flash ()
 //--------------------------------------------колбэк прерывания от UART 1 при передаче половины сообщения------------------------------------//
 void HAL_UART_TxHalfCpltCallback(UART_HandleTypeDef *huart)
 {
-        // передана половина данных
+	if(huart == &huart1)
+		{
+
+		}
 }
 /*DMA вызывает два прерывания, первое после отправки половины буфера, а второе при завершении. Чтобы отключить половинку,
 нужно в файле stm32f1xx_hal_uart.c найти функцию HAL_UART_Transmit_DMA(...) и закомментировать строку huart->hdmatx->XferHalfCpltCallback = UART_DMATxHalfCplt*/
@@ -81,10 +89,33 @@ void HAL_UART_TxHalfCpltCallback(UART_HandleTypeDef *huart)
 //--------------------------------------колбэк прерывания от UART 1 при передаче полного сообщения-------------------------------------------//
 void HAL_UART_TxCpltCallback(UART_HandleTypeDef *huart)
 {
-          if(huart == &huart1)
-          {
+	if(huart == &huart1)
+		{
 
-          }
+        }
+}
+
+
+//--------------------------------------колбэк прерывания от UART 1 при приёме полного сообщения-------------------------------------------//
+void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
+{
+	if(huart == &huart1)
+		{
+		sprintf (UART_msg_TX,"Callback\r\n");
+		HAL_UART_Transmit_DMA (&huart1, (unsigned char*)UART_msg_TX, strlen(UART_msg_TX));
+
+		HAL_UART_Receive_IT(&huart1, (uint8_t*)&symbol, 1);
+/*		count++;
+		ptr++;
+		if ((UART_buf_RX [count-2] == '\r') && (UART_buf_RX [count-1] == '\n'))
+			{
+			 count = 0;
+			 HAL_UART_Transmit (&huart1, (unsigned char*)UART_msg_TX, strlen(UART_msg_TX), 0xFFFF);
+			 ptr = UART_buf_RX;
+			}
+		HAL_UART_Receive_IT(&huart1, (uint8_t*)ptr, 1);
+//		HAL_UART_Receive_IT(&huart1, (uint8_t*)UART_buf_RX, 1);*/
+        }
 }
 /* USER CODE END 0 */
 
@@ -120,8 +151,12 @@ int main(void)
   MX_USART1_UART_Init();
   /* USER CODE BEGIN 2 */
   sprintf (UART_msg_TX,"flash_edit_start\r\n");
-  HAL_UART_Transmit(&huart1, (unsigned char*)UART_msg_TX, strlen(UART_msg_TX), 0x1000);
+  HAL_UART_Transmit_DMA (&huart1, (unsigned char*)UART_msg_TX, strlen(UART_msg_TX));
   HAL_GPIO_WritePin (LED_GPIO_Port, LED_Pin, ENABLE);
+  ptr = UART_buf_RX;
+  HAL_UART_Receive_IT(&huart1, (uint8_t*)&symbol, 1);
+//  HAL_UART_Receive_IT(&huart1, (uint8_t*)ptr, 1);
+//  HAL_UART_Receive_IT(&huart1, (uint8_t*)UART_buf_RX, 1);
   /* USER CODE END 2 */
 
   /* Infinite loop */

@@ -124,4 +124,4 @@ RCC.APB1Freq_Value=32000000
 ProjectManager.CustomerFirmwarePackage=
 ProjectManager.DeviceId=STM32F103C8Tx
 ProjectManager.LibraryCopy=1
-isbadioc=true
+isbadioc=false
