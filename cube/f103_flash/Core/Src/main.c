@@ -51,12 +51,17 @@ DMA_HandleTypeDef hdma_usart1_tx;
 
 /* USER CODE BEGIN PV */
 static char UART_msg_TX [msg_SIZE]; // массив для формирования сообщений для вывода по UART
-static unsigned char UART_buf_RX [128]; // массив для полученных сообщений по UART
-uint8_t * ptr = 0; // указатель на следующий символ в массиве
-uint8_t count = 0;
-uint8_t symbol = 0;
-/*volatile uint8_t index_r = 0;
-volatile uint8_t index_w = 0;*/
+static char UART_buf_RX [msg_SIZE]; // массив для полученных сообщений по UART
+const char message1 [] = "yes\r\n";
+const char message2 [] = "error\r\n";
+uint8_t count = 0; //номер элемента массива
+char symbol = 0;
+union data {             //объявим структуру
+	uint16_t name;
+	uint8_t day;
+	uint8_t month;
+	uint16_t year;
+	} kordinata;
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -72,7 +77,46 @@ static void MX_USART1_UART_Init(void);
 /* USER CODE BEGIN 0 */
 void write_flash ()
 {
-
+	HAL_FLASH_Unlock(); // разблокировать флеш
+	uint32_t address = FLASH_START_ADDR-0x30; // адрес страницы для записи
+	kordinata.name = 0xFECA;
+	if(HAL_FLASH_Program(FLASH_TYPEPROGRAM_HALFWORD, address, kordinata.name) != HAL_OK) //запись и обработчик ошибки
+	{
+	    uint32_t code_error = HAL_FLASH_GetError();
+	    sprintf(UART_msg_TX, "ERRoR = %lu\r\n", code_error);
+	    HAL_UART_Transmit_DMA (&huart1, (uint8_t*)UART_msg_TX, strlen(UART_msg_TX));
+	    return;
+	}
+	address = address + 2; // смещаем адрес на 2 байта
+	kordinata.day = 0x29;
+	if(HAL_FLASH_Program(FLASH_TYPEPROGRAM_HALFWORD, address, kordinata.day) != HAL_OK) //обработчик ошибки
+	{
+	 	uint32_t code_error = HAL_FLASH_GetError();
+	 	sprintf(UART_msg_TX, "ERRoR = %lu\r\n", code_error);
+	 	HAL_UART_Transmit_DMA (&huart1, (uint8_t*)UART_msg_TX, strlen(UART_msg_TX));
+	 	return;
+	}
+	address = address + 2; // смещаем адрес на 2 байта
+	kordinata.month = 0x2;
+	if(HAL_FLASH_Program(FLASH_TYPEPROGRAM_HALFWORD, address, kordinata.month) != HAL_OK) //обработчик ошибки
+	{
+		 uint32_t code_error = HAL_FLASH_GetError();
+		 sprintf(UART_msg_TX, "ERRoR = %lu\r\n", code_error);
+		 HAL_UART_Transmit_DMA (&huart1, (uint8_t*)UART_msg_TX, strlen(UART_msg_TX));
+		 return;
+	}
+	address = address + 2; // смещаем адрес на 2 байта
+	kordinata.year = 0x2021;
+	if(HAL_FLASH_Program(FLASH_TYPEPROGRAM_HALFWORD, address, kordinata.year) != HAL_OK) //обработчик ошибки
+	{
+		 uint32_t code_error = HAL_FLASH_GetError();
+		 sprintf(UART_msg_TX, "ERRoR = %lu\r\n", code_error);
+		 HAL_UART_Transmit_DMA (&huart1, (uint8_t*)UART_msg_TX, strlen(UART_msg_TX));
+		 return;
+	}
+	address = address + 2; // смещаем адрес на 2 байта
+	HAL_UART_Transmit_DMA (&huart1, (uint8_t*)"Write in flash OK\r\n", strlen("Write in flash OK\r\n"));
+	HAL_FLASH_Lock(); // заблокировать флеш
 }
 
 //--------------------------------------------колбэк прерывания от UART 1 при передаче половины сообщения------------------------------------//
@@ -101,20 +145,35 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
 {
 	if(huart == &huart1)
 		{
-		sprintf (UART_msg_TX,"Callback\r\n");
-		HAL_UART_Transmit_DMA (&huart1, (unsigned char*)UART_msg_TX, strlen(UART_msg_TX));
-
-		HAL_UART_Receive_IT(&huart1, (uint8_t*)&symbol, 1);
-/*		count++;
-		ptr++;
-		if ((UART_buf_RX [count-2] == '\r') && (UART_buf_RX [count-1] == '\n'))
+		memset(UART_msg_TX, '\0', sizeof(UART_msg_TX)); //ф-я memset копирует младший байт символа ch в первые count символов массива buf. Возвращает указатель на массив.
+		for (count = 0; count < 7; count++)
+		{
+			if (count == 5)
+				{
+				symbol = UART_msg_TX [count] = '\r';
+				HAL_UART_Transmit (&huart1, (unsigned char*)&symbol, 1, 0xFFF);
+				continue;
+				}
+			if (count == 6)
+				{
+				symbol = UART_msg_TX [count] = '\n';
+				HAL_UART_Transmit (&huart1, (unsigned char*)&symbol, 1, 0xFFF);
+				break;
+				}
+			symbol = UART_msg_TX [count] = UART_buf_RX [count];
+			HAL_UART_Transmit (&huart1, (unsigned char*)&symbol, 1, 0xFFF);
+		}
+		if(!strncmp(UART_buf_RX, "write", 5)) //ф-я strncmp сравнивает первые n символов строк. Возвращает "0", если строки одинаковы, "< 0" - если строка1 меньше сроки2, "> 0" - если строка1 больше строки 2
 			{
-			 count = 0;
-			 HAL_UART_Transmit (&huart1, (unsigned char*)UART_msg_TX, strlen(UART_msg_TX), 0xFFFF);
-			 ptr = UART_buf_RX;
+//			HAL_UART_Transmit_DMA (&huart1, (unsigned char*)message1, strlen(message1));
+			write_flash ();
 			}
-		HAL_UART_Receive_IT(&huart1, (uint8_t*)ptr, 1);
-//		HAL_UART_Receive_IT(&huart1, (uint8_t*)UART_buf_RX, 1);*/
+		else
+			{
+			HAL_UART_Transmit_DMA (&huart1, (unsigned char*)message2, strlen(message2));
+			}
+//		HAL_UART_Transmit (&huart1, (unsigned char*)UART_msg_TX, strlen(UART_msg_TX), 0xFFF);
+		HAL_UART_Receive_IT(&huart1, (uint8_t*)UART_buf_RX, 5);
         }
 }
 /* USER CODE END 0 */
@@ -153,10 +212,7 @@ int main(void)
   sprintf (UART_msg_TX,"flash_edit_start\r\n");
   HAL_UART_Transmit_DMA (&huart1, (unsigned char*)UART_msg_TX, strlen(UART_msg_TX));
   HAL_GPIO_WritePin (LED_GPIO_Port, LED_Pin, ENABLE);
-  ptr = UART_buf_RX;
-  HAL_UART_Receive_IT(&huart1, (uint8_t*)&symbol, 1);
-//  HAL_UART_Receive_IT(&huart1, (uint8_t*)ptr, 1);
-//  HAL_UART_Receive_IT(&huart1, (uint8_t*)UART_buf_RX, 1);
+  HAL_UART_Receive_IT(&huart1, (uint8_t*)UART_buf_RX, 5); //ожидаем получения 5 символов по УАРТ
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -167,8 +223,6 @@ int main(void)
 
     /* USER CODE BEGIN 3 */
 	HAL_GPIO_TogglePin (LED_GPIO_Port, LED_Pin);
-	sprintf (UART_msg_TX,"led\r\n");
-	HAL_UART_Transmit_DMA (&huart1, (unsigned char*)UART_msg_TX, strlen(UART_msg_TX));
 	HAL_Delay (1000);
   }
   /* USER CODE END 3 */
