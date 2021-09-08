@@ -1,0 +1,17 @@
+12:27:01 **** Incremental Build of configuration Debug for project f103_easyboot ****
+make -j8 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m3 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F103xB -c -I../Core/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c:48:26: error: 'msg_SIZE' undeclared here (not in a function)
+   48 | static char UART_msg_TX [msg_SIZE]; // массив для формирования сообщений для вывода по UART
+      |                          ^~~~~~~~
+../Core/Src/main.c:49:13: warning: 'UART_buf_RX' defined but not used [-Wunused-variable]
+   49 | static char UART_buf_RX [msg_SIZE]; // массив для полученных сообщений по UART
+      |             ^~~~~~~~~~~
+../Core/Src/main.c:48:13: warning: 'UART_msg_TX' defined but not used [-Wunused-variable]
+   48 | static char UART_msg_TX [msg_SIZE]; // массив для формирования сообщений для вывода по UART
+      |             ^~~~~~~~~~~
+make: *** [Core/Src/subdir.mk:34: Core/Src/main.o] Error 1
+"make -j8 all" terminated with exit code 2. Build might be incomplete.
+
+12:27:01 Build Failed. 2 errors, 2 warnings. (took 512ms)
+

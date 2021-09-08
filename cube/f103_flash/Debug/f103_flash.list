@@ -7,23 +7,23 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   CONTENTS, ALLOC, LOAD, READONLY, DATA
   1 .text         00003404  0800010c  0800010c  0001010c  2**2
                   CONTENTS, ALLOC, LOAD, READONLY, CODE
-  2 .rodata       000000a4  08003510  08003510  00013510  2**2
+  2 .rodata       000000ac  08003510  08003510  00013510  2**2
                   CONTENTS, ALLOC, LOAD, READONLY, DATA
-  3 .ARM.extab    00000000  080035b4  080035b4  00020070  2**0
+  3 .ARM.extab    00000000  080035bc  080035bc  00020070  2**0
                   CONTENTS
-  4 .ARM          00000000  080035b4  080035b4  00020070  2**0
+  4 .ARM          00000000  080035bc  080035bc  00020070  2**0
                   CONTENTS
-  5 .preinit_array 00000000  080035b4  080035b4  00020070  2**0
+  5 .preinit_array 00000000  080035bc  080035bc  00020070  2**0
                   CONTENTS, ALLOC, LOAD, DATA
-  6 .init_array   00000004  080035b4  080035b4  000135b4  2**2
+  6 .init_array   00000004  080035bc  080035bc  000135bc  2**2
                   CONTENTS, ALLOC, LOAD, DATA
-  7 .fini_array   00000004  080035b8  080035b8  000135b8  2**2
+  7 .fini_array   00000004  080035c0  080035c0  000135c0  2**2
                   CONTENTS, ALLOC, LOAD, DATA
-  8 .data         00000070  20000000  080035bc  00020000  2**2
+  8 .data         00000070  20000000  080035c4  00020000  2**2
                   CONTENTS, ALLOC, LOAD, DATA
-  9 .bss          00000128  20000070  0800362c  00020070  2**3
+  9 .bss          00000128  20000070  08003634  00020070  2**3
                   ALLOC
- 10 ._user_heap_stack 00000600  20000198  0800362c  00020198  2**0
+ 10 ._user_heap_stack 00000600  20000198  08003634  00020198  2**0
                   ALLOC
  11 .ARM.attributes 00000029  00000000  00000000  00020070  2**0
                   CONTENTS, READONLY
@@ -35,15 +35,15 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   CONTENTS, READONLY, DEBUGGING, OCTETS
  15 .debug_ranges 000006b0  00000000  00000000  00029cd0  2**3
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 16 .debug_macro  00017032  00000000  00000000  0002a380  2**0
+ 16 .debug_macro  00017020  00000000  00000000  0002a380  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 17 .debug_line   00008053  00000000  00000000  000413b2  2**0
+ 17 .debug_line   00008053  00000000  00000000  000413a0  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 18 .debug_str    00082b89  00000000  00000000  00049405  2**0
+ 18 .debug_str    00082b07  00000000  00000000  000493f3  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 19 .comment      00000053  00000000  00000000  000cbf8e  2**0
+ 19 .comment      00000053  00000000  00000000  000cbefa  2**0
                   CONTENTS, READONLY
- 20 .debug_frame  0000202c  00000000  00000000  000cbfe4  2**2
+ 20 .debug_frame  0000202c  00000000  00000000  000cbf50  2**2
                   CONTENTS, READONLY, DEBUGGING, OCTETS
 
 Disassembly of section .text:
@@ -86,10 +86,10 @@ Disassembly of section .text:
  800015a:	4770      	bx	lr
 
 0800015c <write_flash>:
-/* USER CODE END PFP */
-
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
+
+/*-------------------------функция записывающая данные во флэш микроконтроллера--------------------------------*/
 void write_flash ()
 {
  800015c:	b580      	push	{r7, lr}
@@ -97,14 +97,14 @@ void write_flash ()
  8000160:	af00      	add	r7, sp, #0
 	HAL_FLASH_Unlock(); // разблокировать флеш
  8000162:	f001 f857 	bl	8001214 <HAL_FLASH_Unlock>
-	uint32_t address = FLASH_START_ADDR-0x30; // запись в начало страницы 127
+	uint32_t address = FLASH_START_ADDR; // адрес страницы для записи
  8000166:	4b51      	ldr	r3, [pc, #324]	; (80002ac <write_flash+0x150>)
  8000168:	617b      	str	r3, [r7, #20]
-	kordinata.name = 0xFECA;
+	kordinata.name = 0xCAFE;
  800016a:	4b51      	ldr	r3, [pc, #324]	; (80002b0 <write_flash+0x154>)
- 800016c:	f64f 62ca 	movw	r2, #65226	; 0xfeca
+ 800016c:	f64c 22fe 	movw	r2, #51966	; 0xcafe
  8000170:	801a      	strh	r2, [r3, #0]
-	if(HAL_FLASH_Program(FLASH_TYPEPROGRAM_HALFWORD, address, kordinata.name) != HAL_OK) //обработчик ошибки
+	if(HAL_FLASH_Program(FLASH_TYPEPROGRAM_HALFWORD, address, kordinata.name) != HAL_OK) //запись и обработчик ошибки
  8000172:	4b4f      	ldr	r3, [pc, #316]	; (80002b0 <write_flash+0x154>)
  8000174:	881b      	ldrh	r3, [r3, #0]
  8000176:	b29a      	uxth	r2, r3
@@ -119,7 +119,7 @@ void write_flash ()
 	    uint32_t code_error = HAL_FLASH_GetError();
  800018a:	f001 f879 	bl	8001280 <HAL_FLASH_GetError>
  800018e:	6078      	str	r0, [r7, #4]
-	    sprintf(UART_msg_TX, "ERRoR = %lu\r\n", code_error);
+	    sprintf(UART_msg_TX, "error = %lu\r\n", code_error);
  8000190:	687a      	ldr	r2, [r7, #4]
  8000192:	4948      	ldr	r1, [pc, #288]	; (80002b4 <write_flash+0x158>)
  8000194:	4848      	ldr	r0, [pc, #288]	; (80002b8 <write_flash+0x15c>)
@@ -140,9 +140,10 @@ void write_flash ()
  80001b0:	697b      	ldr	r3, [r7, #20]
  80001b2:	3302      	adds	r3, #2
  80001b4:	617b      	str	r3, [r7, #20]
-	kordinata.day = 0x29;
+
+	kordinata.day = 0x13;
  80001b6:	4b3e      	ldr	r3, [pc, #248]	; (80002b0 <write_flash+0x154>)
- 80001b8:	2229      	movs	r2, #41	; 0x29
+ 80001b8:	2213      	movs	r2, #19
  80001ba:	701a      	strb	r2, [r3, #0]
 	if(HAL_FLASH_Program(FLASH_TYPEPROGRAM_HALFWORD, address, kordinata.day) != HAL_OK) //обработчик ошибки
  80001bc:	4b3c      	ldr	r3, [pc, #240]	; (80002b0 <write_flash+0x154>)
@@ -159,7 +160,7 @@ void write_flash ()
 	 	uint32_t code_error = HAL_FLASH_GetError();
  80001d4:	f001 f854 	bl	8001280 <HAL_FLASH_GetError>
  80001d8:	60b8      	str	r0, [r7, #8]
-	 	sprintf(UART_msg_TX, "ERRoR = %lu\r\n", code_error);
+	 	sprintf(UART_msg_TX, "error = %lu\r\n", code_error);
  80001da:	68ba      	ldr	r2, [r7, #8]
  80001dc:	4935      	ldr	r1, [pc, #212]	; (80002b4 <write_flash+0x158>)
  80001de:	4836      	ldr	r0, [pc, #216]	; (80002b8 <write_flash+0x15c>)
@@ -180,9 +181,10 @@ void write_flash ()
  80001fa:	697b      	ldr	r3, [r7, #20]
  80001fc:	3302      	adds	r3, #2
  80001fe:	617b      	str	r3, [r7, #20]
-	kordinata.month = 0x2;
+
+	kordinata.month = 0x3;
  8000200:	4b2b      	ldr	r3, [pc, #172]	; (80002b0 <write_flash+0x154>)
- 8000202:	2202      	movs	r2, #2
+ 8000202:	2203      	movs	r2, #3
  8000204:	701a      	strb	r2, [r3, #0]
 	if(HAL_FLASH_Program(FLASH_TYPEPROGRAM_HALFWORD, address, kordinata.month) != HAL_OK) //обработчик ошибки
  8000206:	4b2a      	ldr	r3, [pc, #168]	; (80002b0 <write_flash+0x154>)
@@ -199,7 +201,7 @@ void write_flash ()
 		 uint32_t code_error = HAL_FLASH_GetError();
  800021e:	f001 f82f 	bl	8001280 <HAL_FLASH_GetError>
  8000222:	60f8      	str	r0, [r7, #12]
-		 sprintf(UART_msg_TX, "ERRoR = %lu\r\n", code_error);
+		 sprintf(UART_msg_TX, "error = %lu\r\n", code_error);
  8000224:	68fa      	ldr	r2, [r7, #12]
  8000226:	4923      	ldr	r1, [pc, #140]	; (80002b4 <write_flash+0x158>)
  8000228:	4823      	ldr	r0, [pc, #140]	; (80002b8 <write_flash+0x15c>)
@@ -220,9 +222,10 @@ void write_flash ()
  8000244:	697b      	ldr	r3, [r7, #20]
  8000246:	3302      	adds	r3, #2
  8000248:	617b      	str	r3, [r7, #20]
-	kordinata.year = 0x2021;
+
+	kordinata.year = 0x2020;
  800024a:	4b19      	ldr	r3, [pc, #100]	; (80002b0 <write_flash+0x154>)
- 800024c:	f242 0221 	movw	r2, #8225	; 0x2021
+ 800024c:	f242 0220 	movw	r2, #8224	; 0x2020
  8000250:	801a      	strh	r2, [r3, #0]
 	if(HAL_FLASH_Program(FLASH_TYPEPROGRAM_HALFWORD, address, kordinata.year) != HAL_OK) //обработчик ошибки
  8000252:	4b17      	ldr	r3, [pc, #92]	; (80002b0 <write_flash+0x154>)
@@ -239,7 +242,7 @@ void write_flash ()
 		 uint32_t code_error = HAL_FLASH_GetError();
  800026a:	f001 f809 	bl	8001280 <HAL_FLASH_GetError>
  800026e:	6138      	str	r0, [r7, #16]
-		 sprintf(UART_msg_TX, "ERRoR = %lu\r\n", code_error);
+		 sprintf(UART_msg_TX, "error = %lu\r\n", code_error);
  8000270:	693a      	ldr	r2, [r7, #16]
  8000272:	4910      	ldr	r1, [pc, #64]	; (80002b4 <write_flash+0x158>)
  8000274:	4810      	ldr	r0, [pc, #64]	; (80002b8 <write_flash+0x15c>)
@@ -260,6 +263,7 @@ void write_flash ()
  8000290:	697b      	ldr	r3, [r7, #20]
  8000292:	3302      	adds	r3, #2
  8000294:	617b      	str	r3, [r7, #20]
+
 	HAL_UART_Transmit_DMA (&huart1, (uint8_t*)"Write in flash OK\r\n", strlen("Write in flash OK\r\n"));
  8000296:	2213      	movs	r2, #19
  8000298:	4909      	ldr	r1, [pc, #36]	; (80002c0 <write_flash+0x164>)
@@ -272,7 +276,7 @@ void write_flash ()
  80002a6:	46bd      	mov	sp, r7
  80002a8:	bd80      	pop	{r7, pc}
  80002aa:	bf00      	nop
- 80002ac:	0801fbd0 	.word	0x0801fbd0
+ 80002ac:	0800ff00 	.word	0x0800ff00
  80002b0:	200000d8 	.word	0x200000d8
  80002b4:	08003510 	.word	0x08003510
  80002b8:	2000008c 	.word	0x2000008c
@@ -282,6 +286,8 @@ void write_flash ()
 080002c4 <HAL_UART_TxHalfCpltCallback>:
 
 //--------------------------------------------колбэк прерывания от UART 1 при передаче половины сообщения------------------------------------//
+/*DMA вызывает два прерывания, первое после отправки половины буфера, а второе при завершении. Чтобы отключить половинку,
+нужно в файле stm32f1xx_hal_uart.c найти функцию HAL_UART_Transmit_DMA(...) и закомментировать строку huart->hdmatx->XferHalfCpltCallback = UART_DMATxHalfCplt*/
 void HAL_UART_TxHalfCpltCallback(UART_HandleTypeDef *huart)
 {
  80002c4:	b480      	push	{r7}
@@ -300,8 +306,6 @@ void HAL_UART_TxHalfCpltCallback(UART_HandleTypeDef *huart)
  80002d4:	4770      	bx	lr
 
 080002d6 <HAL_UART_TxCpltCallback>:
-/*DMA вызывает два прерывания, первое после отправки половины буфера, а второе при завершении. Чтобы отключить половинку,
-нужно в файле stm32f1xx_hal_uart.c найти функцию HAL_UART_Transmit_DMA(...) и закомментировать строку huart->hdmatx->XferHalfCpltCallback = UART_DMATxHalfCplt*/
 
 //--------------------------------------колбэк прерывания от UART 1 при передаче полного сообщения-------------------------------------------//
 void HAL_UART_TxCpltCallback(UART_HandleTypeDef *huart)
@@ -348,7 +352,7 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
  8000306:	701a      	strb	r2, [r3, #0]
  8000308:	e043      	b.n	8000392 <HAL_UART_RxCpltCallback+0xaa>
 		{
-			if (count == 5)
+			if (count == 5) //добавим в массив символ \r
  800030a:	4b32      	ldr	r3, [pc, #200]	; (80003d4 <HAL_UART_RxCpltCallback+0xec>)
  800030c:	781b      	ldrb	r3, [r3, #0]
  800030e:	2b05      	cmp	r3, #5
@@ -373,7 +377,7 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
 				continue;
  8000332:	e028      	b.n	8000386 <HAL_UART_RxCpltCallback+0x9e>
 				}
-			if (count == 6)
+			if (count == 6) //добавим в массив символ \n
  8000334:	4b27      	ldr	r3, [pc, #156]	; (80003d4 <HAL_UART_RxCpltCallback+0xec>)
  8000336:	781b      	ldrb	r3, [r3, #0]
  8000338:	2b06      	cmp	r3, #6
@@ -398,7 +402,7 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
 				break;
  800035c:	e01d      	b.n	800039a <HAL_UART_RxCpltCallback+0xb2>
 				}
-			symbol = UART_msg_TX [count] = UART_buf_RX [count];
+			symbol = UART_msg_TX [count] = UART_buf_RX [count]; //эхо
  800035e:	4b1d      	ldr	r3, [pc, #116]	; (80003d4 <HAL_UART_RxCpltCallback+0xec>)
  8000360:	781b      	ldrb	r3, [r3, #0]
  8000362:	4619      	mov	r1, r3
@@ -440,19 +444,18 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
  80003a8:	d102      	bne.n	80003b0 <HAL_UART_RxCpltCallback+0xc8>
 			{
 //			HAL_UART_Transmit_DMA (&huart1, (unsigned char*)message1, strlen(message1));
-			write_flash ();
+			write_flash (); //запишем данные во флэш
  80003aa:	f7ff fed7 	bl	800015c <write_flash>
  80003ae:	e004      	b.n	80003ba <HAL_UART_RxCpltCallback+0xd2>
 			}
 		else
 			{
 			HAL_UART_Transmit_DMA (&huart1, (unsigned char*)message2, strlen(message2));
- 80003b0:	2207      	movs	r2, #7
+ 80003b0:	220f      	movs	r2, #15
  80003b2:	490c      	ldr	r1, [pc, #48]	; (80003e4 <HAL_UART_RxCpltCallback+0xfc>)
  80003b4:	4805      	ldr	r0, [pc, #20]	; (80003cc <HAL_UART_RxCpltCallback+0xe4>)
  80003b6:	f001 feff 	bl	80021b8 <HAL_UART_Transmit_DMA>
 			}
-//		HAL_UART_Transmit (&huart1, (unsigned char*)UART_msg_TX, strlen(UART_msg_TX), 0xFFF);
 		HAL_UART_Receive_IT(&huart1, (uint8_t*)UART_buf_RX, 5);
  80003ba:	2205      	movs	r2, #5
  80003bc:	4907      	ldr	r1, [pc, #28]	; (80003dc <HAL_UART_RxCpltCallback+0xf4>)
@@ -1504,7 +1507,7 @@ LoopFillZerobss:
   ldr r1, =_edata
  80008bc:	20000070 	.word	0x20000070
   ldr r2, =_sidata
- 80008c0:	080035bc 	.word	0x080035bc
+ 80008c0:	080035c4 	.word	0x080035c4
   ldr r2, =_sbss
  80008c4:	20000070 	.word	0x20000070
   ldr r4, =_ebss
@@ -5367,7 +5370,7 @@ if (((RCC_ClkInitStruct->ClockType) & RCC_CLOCKTYPE_PCLK1) == RCC_CLOCKTYPE_PCLK
  8001e22:	bf00      	nop
  8001e24:	40022000 	.word	0x40022000
  8001e28:	40021000 	.word	0x40021000
- 8001e2c:	08003568 	.word	0x08003568
+ 8001e2c:	08003570 	.word	0x08003570
  8001e30:	20000000 	.word	0x20000000
  8001e34:	20000004 	.word	0x20000004
 
@@ -5563,7 +5566,7 @@ uint32_t HAL_RCC_GetPCLK1Freq(void)
  8001f28:	4618      	mov	r0, r3
  8001f2a:	bd80      	pop	{r7, pc}
  8001f2c:	40021000 	.word	0x40021000
- 8001f30:	08003578 	.word	0x08003578
+ 8001f30:	08003580 	.word	0x08003580
 
 08001f34 <HAL_RCC_GetPCLK2Freq>:
   * @note   Each time PCLK2 changes, this function must be called to update the
@@ -5589,7 +5592,7 @@ uint32_t HAL_RCC_GetPCLK2Freq(void)
  8001f50:	4618      	mov	r0, r3
  8001f52:	bd80      	pop	{r7, pc}
  8001f54:	40021000 	.word	0x40021000
- 8001f58:	08003578 	.word	0x08003578
+ 8001f58:	08003580 	.word	0x08003580
 
 08001f5c <RCC_Delay>:
   * @brief  This function provides delay (in milliseconds) based on CPU cycles method.
@@ -7943,10 +7946,10 @@ static void UART_SetConfig(UART_HandleTypeDef *huart)
  8002c3a:	4798      	blx	r3
  8002c3c:	3601      	adds	r6, #1
  8002c3e:	e7f2      	b.n	8002c26 <__libc_init_array+0x1e>
- 8002c40:	080035b4 	.word	0x080035b4
- 8002c44:	080035b4 	.word	0x080035b4
- 8002c48:	080035b4 	.word	0x080035b4
- 8002c4c:	080035b8 	.word	0x080035b8
+ 8002c40:	080035bc 	.word	0x080035bc
+ 8002c44:	080035bc 	.word	0x080035bc
+ 8002c48:	080035bc 	.word	0x080035bc
+ 8002c4c:	080035c0 	.word	0x080035c0
 
 08002c50 <memset>:
  8002c50:	4603      	mov	r3, r0
@@ -8282,11 +8285,11 @@ static void UART_SetConfig(UART_HandleTypeDef *huart)
  8002f60:	f000 f87c 	bl	800305c <_printf_i>
  8002f64:	e7eb      	b.n	8002f3e <_svfiprintf_r+0x1c2>
  8002f66:	bf00      	nop
- 8002f68:	08003580 	.word	0x08003580
- 8002f6c:	0800358a 	.word	0x0800358a
+ 8002f68:	08003588 	.word	0x08003588
+ 8002f6c:	08003592 	.word	0x08003592
  8002f70:	00000000 	.word	0x00000000
  8002f74:	08002cc5 	.word	0x08002cc5
- 8002f78:	08003586 	.word	0x08003586
+ 8002f78:	0800358e 	.word	0x0800358e
 
 08002f7c <_printf_common>:
  8002f7c:	e92d 47f0 	stmdb	sp!, {r4, r5, r6, r7, r8, r9, sl, lr}
@@ -8623,8 +8626,8 @@ static void UART_SetConfig(UART_HandleTypeDef *huart)
  8003298:	2500      	movs	r5, #0
  800329a:	f104 0619 	add.w	r6, r4, #25
  800329e:	e7f5      	b.n	800328c <_printf_i+0x230>
- 80032a0:	08003591 	.word	0x08003591
- 80032a4:	080035a2 	.word	0x080035a2
+ 80032a0:	08003599 	.word	0x08003599
+ 80032a4:	080035aa 	.word	0x080035aa
 
 080032a8 <memchr>:
  80032a8:	4603      	mov	r3, r0

@@ -63,7 +63,7 @@ void Error_Handler(void);
 #define BUTTON_Pin GPIO_PIN_11
 #define BUTTON_GPIO_Port GPIOA
 /* USER CODE BEGIN Private defines */
-#define FLASH_START_ADDR 0x0801FC00 /* Start of user Flash area */
+#define FLASH_START_ADDR 0x0800FF00 /* Start of user Flash area */
 
 /* USER CODE END Private defines */
 

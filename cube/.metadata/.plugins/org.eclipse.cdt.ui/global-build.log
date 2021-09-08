@@ -1,4 +1,4 @@
-17:00:45 **** Incremental Build of configuration Debug for project f103_flash ****
+12:35:23 **** Incremental Build of configuration Debug for project f103_flash ****
 make -j8 all 
 arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m3 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F103xB -c -I../Core/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Core/Src/main.o"
 arm-none-eabi-gcc -o "f103_flash.elf" @"objects.list"   -mcpu=cortex-m3 -T"D:\projects\stm32-rep\cube\f103_flash\STM32F103C8TX_FLASH.ld" --specs=nosys.specs -Wl,-Map="f103_flash.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
@@ -9,7 +9,7 @@ arm-none-eabi-objcopy  -O ihex  f103_flash.elf  "f103_flash.hex"
 arm-none-eabi-objcopy  -O binary  f103_flash.elf  "f103_flash.bin"
 arm-none-eabi-size   f103_flash.elf 
    text	   data	    bss	    dec	    hex	filename
-  13748	    120	   1832	  15700	   3d54	f103_flash.elf
+  13756	    120	   1832	  15708	   3d5c	f103_flash.elf
 Finished building: default.size.stdout
  
 Finished building: f103_flash.hex
